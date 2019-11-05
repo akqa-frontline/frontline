@@ -1,0 +1,7 @@
+@import "../../tokens/typography";
+@import "../../tokens/colors.json";
+
+.eager {
+    color: nth($indigo, 10);
+    font-size: map-get($type-scale, xxl);
+}

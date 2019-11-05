@@ -1,0 +1,15 @@
+node_modules
+**/package-lock.json
+packages/**/lib
+dist
+build
+tmp
+.DS_Store
+
+# editors
+.vscode
+.vs
+.idea
+
+# debugging
+*.log

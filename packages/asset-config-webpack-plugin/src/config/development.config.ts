@@ -1,0 +1,6 @@
+export = () => ({
+    module: {
+        rules: []
+    },
+    plugins: []
+});

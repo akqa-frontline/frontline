@@ -1,0 +1,15 @@
+{
+  "name": "test-utils",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A set of helpers for writing tests for the Frontline packages",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "webpack": "^4.39.2"
+  }
+}

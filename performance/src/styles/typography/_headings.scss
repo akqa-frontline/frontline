@@ -1,0 +1,16 @@
+@import "../../tokens/typography";
+
+$heading-scale-map: (
+    1: map-get($type-scale, xxl),
+    2: map-get($type-scale, xl),
+    3: map-get($type-scale, lg),
+    4: map-get($type-scale, md),
+    5: map-get($type-scale, sm),
+    6: map-get($type-scale, xs),
+);
+
+@for $i from 1 through 6 {
+    .h#{$i} {
+        font-size: map-get($heading-scale-map, $i);
+    }
+}

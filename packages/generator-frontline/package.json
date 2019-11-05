@@ -1,0 +1,22 @@
+{
+  "name": "@akqa-frontline/generator-frontline",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib/generator-frontline.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 0"
+  },
+  "dependencies": {
+    "yo": "^3.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "3d3a5638e09e5d6f428467189dd9ada6fad3110d"
+}

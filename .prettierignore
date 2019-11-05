@@ -1,0 +1,17 @@
+# Node
+**/node_modules
+**/package.json
+**/package-lock.json
+
+# Generated
+**/bower.json
+**/lerna.json
+
+# Build
+**/build
+**/dist
+performance/public
+**/tmp
+**/coverage
+**/.publish
+performance/environments/*/src/components

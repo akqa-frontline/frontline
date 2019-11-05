@@ -1,0 +1,25 @@
+@import "~modularscale-sass/stylesheets/modularscale";
+
+$font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+sans-serif;
+
+@import "./colors.json";
+$font-primary-color: nth($gray, 1);
+
+$text-base-size: 1em;
+$text-scale-ratio: $golden;
+
+$modularscale: (
+    base: $text-base-size,
+    ratio: $text-scale-ratio
+);
+
+$type-scale: (
+    xs: ms(0),
+    sm: ms(1),
+    md: ms(2),
+    lg: ms(3),
+    xl: ms(4),
+    xxl: ms(5)
+);

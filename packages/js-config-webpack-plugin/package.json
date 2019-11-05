@@ -1,0 +1,85 @@
+{
+  "name": "@akqa-frontline/js-config-webpack-plugin",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --verbose --runInBand --detectOpenHandles",
+    "test-watch": "jest --verbose --watch --runInBand --detectOpenHandles",
+    "test-coverage": "jest --verbose --coverage --runInBand --detectOpenHandles",
+    "update-snapshots": "jest -u --runInBand"
+  },
+  "peerDependencies": {
+    "@babel/runtime": ">=7.6.0",
+    "@babel/runtime-corejs3": ">=7.6.0",
+    "core-js": ">=3.0.0",
+    "webpack": ">=4.0.0"
+  },
+  "dependencies": {
+    "@babel/core": "7.5.5",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "7.5.5",
+    "@babel/preset-react": "7.0.0",
+    "@svgr/webpack": "^4.3.3",
+    "@types/terser-webpack-plugin": "^1.2.1",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.24",
+    "browserslist": "^4.7.0",
+    "terser-webpack-plugin": "^2.1.3"
+  },
+  "devDependencies": {
+    "@babel/runtime": ">=7.6.0",
+    "@babel/runtime-corejs3": ">=7.6.0",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.2",
+    "@types/prop-types": "^15.7.2",
+    "@types/react": "^16.9.2",
+    "@types/webpack": "^4.39.1",
+    "@typescript-eslint/eslint-plugin": "2.0.1-alpha.12",
+    "@typescript-eslint/parser": "2.0.0",
+    "chalk": "^2.4.2",
+    "core-js": ">=3.0.0",
+    "jest": "24.0.0",
+    "jsdom": "13.1.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "rimraf": "2.7.0",
+    "sourcemap-validator": "1.1.0",
+    "ts-jest": "24.0.2",
+    "typescript": "3.5.3",
+    "webpack": "^4.39.2"
+  },
+  "jest": {
+    "browser": false,
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "watchPathIgnorePatterns": [
+      "<rootDir>/test/fixtures"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "fixtures",
+      "dist"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!test/jsDomWindowContext.{js,ts}"
+    ],
+    "coverageReporters": [
+      "text"
+    ]
+  },
+  "engines": {
+    "npm": ">=5",
+    "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "3d3a5638e09e5d6f428467189dd9ada6fad3110d"
+}

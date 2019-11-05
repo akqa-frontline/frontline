@@ -1,0 +1,7 @@
+@import "../../tokens/typography";
+@import "../../tokens/colors.json";
+
+.lazy {
+    color: nth($orange, 7);
+    font-size: map-get($type-scale, xxl);
+}

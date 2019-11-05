@@ -1,0 +1,6 @@
+/*
+    My purpose is to validate that the FrontlineAssetConfigWebpackPlugin does not copy files
+    meant to be transformed through other webpack tasks.
+
+    Please dont delete me.
+ */

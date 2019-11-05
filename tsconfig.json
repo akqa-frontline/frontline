@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "target": "es6",
+    "lib": ["es6"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "sourceMap": true,
+    "types": ["node", "jest"]
+  },
+  "exclude": ["**/node_modules/**/*", "**/test/**/*", "__boilerplate/**/*"]
+}

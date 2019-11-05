@@ -1,0 +1,75 @@
+{
+  "name": "@akqa-frontline/scss-config-webpack-plugin",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --verbose --runInBand --detectOpenHandles",
+    "test-watch": "jest --verbose --watch --runInBand --detectOpenHandles",
+    "test-coverage": "jest --verbose --coverage --runInBand --detectOpenHandles",
+    "update-snapshots": "jest -u --runInBand"
+  },
+  "peerDependencies": {
+    "webpack": ">=4.0.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.4.3",
+    "css-loader": "^1.0.0",
+    "file-loader": "^4.2.0",
+    "iconfont-webpack-plugin": "4.2.1",
+    "mini-css-extract-plugin": "0.5.0",
+    "node-sass": "^4.9.0",
+    "node-sass-glob-importer": "^5.3.2",
+    "node-sass-json-importer": "^4.1.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-safe-parser": "^4.0.1",
+    "resolve-url-loader": "^2.3.0",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.23.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/jsdom": "^12.2.4",
+    "@types/node": "^12.7.2",
+    "@types/webpack": "^4.39.1",
+    "jest": "24.0.0",
+    "jsdom": "^15.1.1",
+    "rimraf": "2.7.0",
+    "ts-jest": "24.0.2",
+    "typescript": "3.5.3",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.39.2"
+  },
+  "jest": {
+    "browser": false,
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "watchPathIgnorePatterns": [
+      "<rootDir>/test/fixtures"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "fixtures",
+      "dist"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!test/jsDomWindowContext.{js,ts}"
+    ],
+    "coverageReporters": [
+      "text"
+    ]
+  },
+  "engines": {
+    "npm": ">=5",
+    "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "3d3a5638e09e5d6f428467189dd9ada6fad3110d"
+}

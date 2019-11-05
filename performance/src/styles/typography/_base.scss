@@ -1,0 +1,19 @@
+@import "../../tokens/typography";
+
+@font-face {
+    font-family: "Bandeins Strange Regular";
+    src: url("../../assets/fonts/BandeinsStrangeRegular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Bandeins Strange Variable";
+    src: url("../../assets/fonts/BandeinsStrangeVariableGX.ttf") format("ttf");
+}
+
+body {
+    //font-family: $font-primary;
+    font-family: "Bandeins Strange Regular";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $font-primary-color;
+}

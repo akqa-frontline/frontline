@@ -1,0 +1,64 @@
+{
+  "name": "@akqa-frontline/image-config-webpack-plugin",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --verbose --runInBand --detectOpenHandles",
+    "test-watch": "jest --verbose --watch --runInBand --detectOpenHandles",
+    "test-coverage": "jest --verbose --coverage --runInBand --detectOpenHandles",
+    "update-snapshots": "jest -u --runInBand"
+  },
+  "peerDependencies": {
+    "webpack": ">=4.0.0"
+  },
+  "dependencies": {
+    "@svgr/webpack": "^4.3.3",
+    "cache-loader": "^4.1.0",
+    "file-loader": "^4.2.0",
+    "svg-inline-loader": "^0.8.0",
+    "url-loader": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.2",
+    "@types/webpack": "^4.39.1",
+    "@typescript-eslint/eslint-plugin": "2.0.1-alpha.12",
+    "@typescript-eslint/parser": "2.0.0",
+    "jest": "24.0.0",
+    "rimraf": "2.7.0",
+    "ts-jest": "24.0.2",
+    "typescript": "3.5.3",
+    "webpack": "^4.39.2"
+  },
+  "jest": {
+    "browser": false,
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "watchPathIgnorePatterns": [
+      "<rootDir>/test/fixtures"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "fixtures",
+      "dist"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!test/jsDomWindowContext.{js,ts}"
+    ],
+    "coverageReporters": [
+      "text"
+    ]
+  },
+  "engines": {
+    "npm": ">=5",
+    "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "3d3a5638e09e5d6f428467189dd9ada6fad3110d"
+}

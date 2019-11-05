@@ -1,0 +1,5 @@
+{
+  "description": "package-file-for-babel",
+  "version": "0.0.0",
+  "main": "src/index.js"
+}

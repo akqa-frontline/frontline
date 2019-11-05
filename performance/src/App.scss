@@ -1,0 +1,14 @@
+.app {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    text-align: center;
+}
