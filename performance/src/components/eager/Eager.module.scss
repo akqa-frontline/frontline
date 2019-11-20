@@ -3,5 +3,6 @@
 
 .eager {
     color: nth($indigo, 10);
+    background-color: cornflowerblue;
     font-size: map-get($type-scale, xxl);
 }

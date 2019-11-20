@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { hot } from "react-hot-loader/root";
 import PropTypes from "prop-types";
 import loadable from "@loadable/component";
 
@@ -10,7 +11,7 @@ const Lazy = loadable(() => import("./components/lazy/Lazy"));
 
 const theLibraryInstance = new TheLibrary();
 
-export default class extends PureComponent {
+class App extends PureComponent {
     static propsTypes = {
         initialProps: PropTypes.object
     };
@@ -49,3 +50,5 @@ export default class extends PureComponent {
         );
     }
 }
+
+export default hot(App);

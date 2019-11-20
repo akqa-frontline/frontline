@@ -14,24 +14,19 @@
     "@akqa-frontline/image-config-webpack-plugin": "file:../packages/image-config-webpack-plugin",
     "@akqa-frontline/js-config-webpack-plugin": "file:../packages/js-config-webpack-plugin",
     "@akqa-frontline/scss-config-webpack-plugin": "file:../packages/scss-config-webpack-plugin",
-    "clean-webpack-plugin": "^3.0.0",
+    "@akqa-frontline/webpack-config": "file:../packages/webpack-config",
     "cross-env": "^6.0.3",
-    "html-webpack-plugin": "^3.2.0",
     "rimraf": "^3.0.0",
     "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-cli": "3.2.1",
-    "webpack-dev-server": "3.1.14",
-    "webpack-module-nomodule-plugin": "^0.1.0"
+    "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.6.3",
-    "@loadable/component": "^5.10.3",
-    "core-js": "^3.3.2",
-    "modularscale-sass": "^3.0.10",
-    "npm-run-all": "^4.1.5",
-    "prop-types": "^15.7.2",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "webpack": "4.28.1"
+    "@babel/runtime": "^7.7.2",
+    "@babel/runtime-corejs3": "^7.7.2",
+    "@hot-loader/react-dom": "^16.11.0",
+    "core-js": "^3.4.1",
+    "react": "^16.12.0",
+    "react-hot-loader": "^4.12.18",
+    "webpack": "^4.41.2"
   }
 }
