@@ -14,10 +14,7 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                 exclude: FILE_MODULE_REGEX,
                 use: [
                     {
-                        loader: require.resolve("style-loader"),
-                        options: {
-                            sourceMap: true
-                        }
+                        loader: require.resolve("style-loader")
                     },
                     {
                         loader: require.resolve("css-loader"),
@@ -51,7 +48,9 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                         loader: require.resolve("sass-loader"),
                         options: {
                             sourceMap: true,
-                            importer: [jsonImporter(), globImporter()]
+                            sassOptions: {
+                                importer: [jsonImporter(), globImporter()]
+                            }
                         }
                     }
                 ]
@@ -60,10 +59,7 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                 test: FILE_MODULE_REGEX,
                 use: [
                     {
-                        loader: require.resolve("style-loader"),
-                        options: {
-                            sourceMap: false
-                        }
+                        loader: require.resolve("style-loader")
                     },
                     {
                         loader: require.resolve("css-loader"),
@@ -98,7 +94,9 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                         loader: require.resolve("sass-loader"),
                         options: {
                             sourceMap: true,
-                            importer: [jsonImporter(), globImporter()]
+                            sassOptions: {
+                                importer: [jsonImporter(), globImporter()]
+                            }
                         }
                     }
                 ]

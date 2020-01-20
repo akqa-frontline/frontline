@@ -6,7 +6,6 @@ const autoprefixer = require("autoprefixer");
 const jsonImporter = require("node-sass-json-importer");
 const globImporter = require("node-sass-glob-importer");
 const safeParser = require("postcss-safe-parser");
-const path = require("path");
 
 import { FILE_MODULE_REGEX, FILE_REGEX } from "../utils/file-extension";
 
@@ -19,23 +18,11 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
                     exclude: FILE_MODULE_REGEX,
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader,
-                            options: {
-                                // The css file will be probably be placed in a sub directory.
-                                // To prevent invalid ressource urls this additional sub folder
-                                // has to be taken into account for the relative path calculation
-                                publicPath: (
-                                    path.relative(
-                                        path.dirname(options.filename),
-                                        "."
-                                    ) + path.sep
-                                ).replace(/^[\\\/]$/, "")
-                            }
+                            loader: MiniCssExtractPlugin.loader
                         },
                         {
                             loader: require.resolve("css-loader"),
                             options: {
-                                sourceMap: true,
                                 importLoaders: 3
                             }
                         },
@@ -54,17 +41,22 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
                                         resolve: loader.resolve
                                     })
                                 ],
-                                sourceMap: true
+                                sourceMap: false
                             }
                         },
                         {
-                            loader: require.resolve("resolve-url-loader")
+                            loader: require.resolve("resolve-url-loader"),
+                            options: {
+                                sourceMap: false
+                            }
                         },
                         {
                             loader: require.resolve("sass-loader"),
                             options: {
                                 sourceMap: true,
-                                importer: [jsonImporter(), globImporter()]
+                                sassOptions: {
+                                    importer: [jsonImporter(), globImporter()]
+                                }
                             }
                         }
                     ]
@@ -73,23 +65,11 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
                     test: FILE_MODULE_REGEX,
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader,
-                            options: {
-                                // The css file will be probably be placed in a sub directory.
-                                // To prevent invalid ressource urls this additional sub folder
-                                // has to be taken into account for the relative path calculation
-                                publicPath: (
-                                    path.relative(
-                                        path.dirname(options.filename),
-                                        "."
-                                    ) + path.sep
-                                ).replace(/^[\\\/]$/, "")
-                            }
+                            loader: MiniCssExtractPlugin.loader
                         },
                         {
                             loader: require.resolve("css-loader"),
                             options: {
-                                sourceMap: true,
                                 importLoaders: 3,
                                 modules: true
                             }
@@ -109,17 +89,22 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
                                         resolve: loader.resolve
                                     })
                                 ],
-                                sourceMap: true
+                                sourceMap: false
                             }
                         },
                         {
-                            loader: require.resolve("resolve-url-loader")
+                            loader: require.resolve("resolve-url-loader"),
+                            options: {
+                                sourceMap: false
+                            }
                         },
                         {
                             loader: require.resolve("sass-loader"),
                             options: {
                                 sourceMap: true,
-                                importer: [jsonImporter(), globImporter()]
+                                sassOptions: {
+                                    importer: [jsonImporter(), globImporter()]
+                                }
                             }
                         }
                     ]
@@ -135,7 +120,10 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
             // Minify css - but use only safe css-nano transformations
             // https://github.com/facebook/create-react-app/pull/4706
             new OptimizeCSSAssetsPlugin({
-                cssProcessorOptions: { parser: safeParser, safe: true }
+                cssProcessorOptions: {
+                    parser: safeParser,
+                    map: { inline: false, annotation: false }
+                }
             })
         ]
     };

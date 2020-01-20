@@ -198,6 +198,7 @@ describe("FrontlineScssConfigWebpackPlugin inside webpack context", () => {
     it("should generate separate CSS files with the correct contents", done => {
         const compiler = webpack({
             mode: "production",
+            devtool: "inline-source-map",
             output: {
                 filename: "js/main.min.js"
             },
@@ -211,10 +212,10 @@ describe("FrontlineScssConfigWebpackPlugin inside webpack context", () => {
                 __dirname,
                 "./fixtures/dist/css/main.min.css"
             );
-            const contents = removeSourceMapComment(
-                fs.readFileSync(cssFilePath).toString()
-            );
-            expect(contents).toMatchSnapshot();
+
+            const contents = fs.readFileSync(cssFilePath).toString();
+            expect(contents).toEqual(".test{height:5px}");
+
             done();
         });
     });
@@ -283,9 +284,9 @@ describe("FrontlineScssConfigWebpackPlugin inside webpack context", () => {
                 __dirname,
                 "./fixtures/dist/css/main.min.css"
             );
-            const contentsMinified = removeSourceMapComment(
-                fs.readFileSync(cssDistFilePath).toString()
-            );
+            const contentsMinified = fs
+                .readFileSync(cssDistFilePath)
+                .toString();
             // Original source should include white spaces
             expect(contentsSource).toMatch(/\s+/);
             // Minified source should not include white spaces
@@ -382,9 +383,8 @@ describe("FrontlineScssConfigWebpackPlugin inside webpack context", () => {
                 __dirname,
                 "./fixtures/dist/main.css"
             );
-            const contents = removeSourceMapComment(
-                fs.readFileSync(cssFilePath).toString()
-            );
+            const contents = fs.readFileSync(cssFilePath).toString();
+
             expect(contents).toMatchSnapshot();
             done();
         });
@@ -478,7 +478,7 @@ describe("FrontlineScssConfigWebpackPlugin inside webpack context", () => {
                         test: /\.woff$/,
                         use: [
                             {
-                                loader: require.resolve("url-loader"),
+                                loader: require.resolve("file-loader"),
                                 options: {
                                     limit: 1
                                 }
@@ -497,9 +497,8 @@ describe("FrontlineScssConfigWebpackPlugin inside webpack context", () => {
                 __dirname,
                 "./fixtures/dist/main.css"
             );
-            const contents = removeSourceMapComment(
-                fs.readFileSync(cssFilePath).toString()
-            );
+            const contents = fs.readFileSync(cssFilePath).toString();
+
             expect(contents).toMatchSnapshot();
 
             done();
@@ -538,9 +537,8 @@ describe("FrontlineScssConfigWebpackPlugin inside webpack context", () => {
                 __dirname,
                 "./fixtures/dist/font-example/css/main.css"
             );
-            const contents = removeSourceMapComment(
-                fs.readFileSync(cssFilePath).toString()
-            );
+            const contents = fs.readFileSync(cssFilePath).toString();
+
             expect(contents).toMatchSnapshot();
 
             done();
