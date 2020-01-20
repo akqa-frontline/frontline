@@ -5,7 +5,7 @@ export interface FrontlineFontConfigWebpackPluginOptions {
     name: string;
 }
 
-const defualtOptions: Partial<FrontlineFontConfigWebpackPluginOptions> = {
+const defaultOptions: Partial<FrontlineFontConfigWebpackPluginOptions> = {
     name: "static/media/[name].[hash:8].[ext]"
 };
 
@@ -13,7 +13,7 @@ export class FrontlineFontConfigWebpackPlugin implements Plugin {
     options: Partial<FrontlineFontConfigWebpackPluginOptions>;
 
     constructor(options?: Partial<FrontlineFontConfigWebpackPluginOptions>) {
-        this.options = Object.assign({}, defualtOptions, options);
+        this.options = Object.assign({}, defaultOptions, options);
     }
 
     apply(compiler: Compiler): void {
