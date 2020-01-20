@@ -31,9 +31,6 @@ export = (options: FrontlineJsConfigWebpackPluginOptions) => ({
                     "@svgr/webpack",
                     {
                         loader: require.resolve("file-loader")
-                        // options: {
-                        //     name: options.name
-                        // }
                     }
                 ]
             }
