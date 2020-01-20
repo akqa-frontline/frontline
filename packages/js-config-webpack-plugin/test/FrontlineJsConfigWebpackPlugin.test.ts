@@ -13,8 +13,8 @@ const fs = require("fs");
 const glob = require("glob");
 const webpack = require("webpack");
 
-// Allow tests to run 10s
-jest.setTimeout(10000);
+// Allow tests to run 20s
+jest.setTimeout(20000);
 
 // Silence console output
 console.warn = jest.fn();
