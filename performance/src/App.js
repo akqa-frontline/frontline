@@ -1,10 +1,10 @@
 import React, { PureComponent } from "react";
-import { hot } from "react-hot-loader/root";
 import PropTypes from "prop-types";
+import { hot } from "react-hot-loader/root";
+
 import loadable from "@loadable/component";
 
 import "./App.scss";
-
 import Eager from "./components/eager/Eager";
 import { TheLibrary } from "./utils/the-util";
 const Lazy = loadable(() => import("./components/lazy/Lazy"));

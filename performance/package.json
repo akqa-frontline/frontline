@@ -2,8 +2,8 @@
   "name": "performance",
   "private": true,
   "scripts": {
-    "build:development": "cross-env NODE_ENV=development webpack --mode development",
-    "build:production": "cross-env NODE_ENV=production webpack --mode production",
+    "clean": "rimraf dist",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --mode production",
     "analyze:legacy": "webpack-bundle-analyzer dist/stats.legacy.json -p 8888",
     "analyze:modern": "webpack-bundle-analyzer dist/stats.modern.json -p 8889",
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development"
@@ -15,18 +15,27 @@
     "@akqa-frontline/js-config-webpack-plugin": "file:../packages/js-config-webpack-plugin",
     "@akqa-frontline/scss-config-webpack-plugin": "file:../packages/scss-config-webpack-plugin",
     "@akqa-frontline/webpack-config": "file:../packages/webpack-config",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "@types/react": "^16.9.14",
     "cross-env": "^6.0.3",
     "rimraf": "^3.0.0",
+    "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-manifest-plugin": "^2.2.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.7.2",
     "@babel/runtime-corejs3": "^7.7.2",
     "@hot-loader/react-dom": "^16.11.0",
+    "@loadable/component": "^5.11.0",
     "core-js": "^3.4.1",
+    "modularscale-sass": "^3.0.10",
     "react": "^16.12.0",
-    "react-hot-loader": "^4.12.18",
-    "webpack": "^4.41.2"
+    "react-dom": "^16.12.0",
+    "react-hot-loader": "^4.12.18"
   }
 }

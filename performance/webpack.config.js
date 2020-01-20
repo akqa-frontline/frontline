@@ -13,7 +13,6 @@ const {
 const {
     FrontlineAssetConfigWebpackPlugin
 } = require("@akqa-frontline/asset-config-webpack-plugin");
-const fs = require("fs");
 
 const { FrontlineWebpackConfig } = require("@akqa-frontline/webpack-config");
 
