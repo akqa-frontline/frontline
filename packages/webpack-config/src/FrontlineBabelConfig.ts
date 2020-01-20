@@ -1,27 +1,28 @@
 const browserslist = require("browserslist");
 const fs = require("fs");
-const projectDirectory = fs.realpathSync(process.cwd());
-const browserslistConfig = browserslist.findConfig(projectDirectory);
 
-const isEnvDevelopment = process.env.NODE_ENV === "development";
-const isEnvProduction = process.env.NODE_ENV === "production";
+export function FrontlineBabelConfig(cwd?: string) {
+    const isEnvDevelopment = process.env.NODE_ENV === "development";
+    const isEnvProduction = process.env.NODE_ENV === "production";
 
-if (!isEnvDevelopment && !isEnvProduction) {
-    throw new Error(
-        'NODE_ENV environment variable is required. Valid values are "development" and "production".' +
-            "Instead, recieved: " +
-            JSON.stringify(process.env.NODE_ENV) +
-            "."
-    );
-}
+    if (!isEnvDevelopment && !isEnvProduction) {
+        throw new Error(
+            'NODE_ENV environment variable is required. Valid values are "development" and "production".' +
+                "Instead, recieved: " +
+                JSON.stringify(process.env.NODE_ENV) +
+                "."
+        );
+    }
 
-export function FrontlineBabelConfig() {
+    const projectDirectory = fs.realpathSync(cwd || process.cwd());
+    const browserslistConfig = browserslist.findConfig(projectDirectory);
+
     return {
         env: {
             legacy: {
                 presets: [
                     [
-                        "@babel/preset-env",
+                        require("@babel/preset-env").default,
                         {
                             // Do not transform modules to CJS
                             modules: false,
@@ -37,7 +38,7 @@ export function FrontlineBabelConfig() {
                         }
                     ],
                     [
-                        "@babel/preset-react",
+                        require("@babel/preset-react").default,
                         {
                             development: isEnvDevelopment,
                             useBuiltIns: true
@@ -46,17 +47,19 @@ export function FrontlineBabelConfig() {
                 ],
                 plugins: [
                     isEnvDevelopment && "react-hot-loader/babel",
-                    "@babel/plugin-syntax-dynamic-import",
+                    require("@babel/plugin-syntax-dynamic-import").default,
                     [
-                        "@babel/plugin-proposal-class-properties",
+                        require("@babel/plugin-proposal-class-properties")
+                            .default,
                         { loose: true }
                     ],
                     isEnvProduction && [
-                        "babel-plugin-transform-react-remove-prop-types",
+                        require("babel-plugin-transform-react-remove-prop-types")
+                            .default,
                         { removeImport: true }
                     ],
                     isEnvProduction && [
-                        "@babel/plugin-transform-runtime",
+                        require("@babel/plugin-transform-runtime").default,
                         { corejs: 3 }
                     ]
                 ].filter(Boolean)
@@ -64,7 +67,7 @@ export function FrontlineBabelConfig() {
             modern: {
                 presets: [
                     [
-                        "@babel/preset-env",
+                        require("@babel/preset-env").default,
                         {
                             // Do not transform modules to CJS
                             modules: false,
@@ -74,7 +77,7 @@ export function FrontlineBabelConfig() {
                         }
                     ],
                     [
-                        "@babel/preset-react",
+                        require("@babel/preset-react").default,
                         {
                             development: isEnvDevelopment,
                             useBuiltIns: true
@@ -83,17 +86,19 @@ export function FrontlineBabelConfig() {
                 ],
                 plugins: [
                     isEnvDevelopment && "react-hot-loader/babel",
-                    "@babel/plugin-syntax-dynamic-import",
+                    require("@babel/plugin-syntax-dynamic-import").default,
                     [
-                        "@babel/plugin-proposal-class-properties",
+                        require("@babel/plugin-proposal-class-properties")
+                            .default,
                         { loose: true }
                     ],
                     isEnvProduction && [
-                        "babel-plugin-transform-react-remove-prop-types",
+                        require("babel-plugin-transform-react-remove-prop-types")
+                            .default,
                         { removeImport: true }
                     ],
                     isEnvProduction && [
-                        "@babel/plugin-transform-runtime",
+                        require("@babel/plugin-transform-runtime").default,
                         { corejs: false }
                     ]
                 ].filter(Boolean)

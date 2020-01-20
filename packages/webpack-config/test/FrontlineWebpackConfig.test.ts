@@ -1,12 +1,15 @@
-import { failTestIfWebpackCompilationFails } from "../../../test-utils/src/test-utils";
+import {
+    ENVS,
+    failTestIfWebpackCompilationFails,
+    setEnv
+} from "../../../test-utils/src/test-utils";
+import { FrontlineWebpackConfig } from "../src";
 
 const path = require("path");
 const rimraf = require("rimraf");
 const fs = require("fs");
 const glob = require("glob");
 const webpack = require("webpack");
-
-import { FrontlineWebpackConfig } from "../src";
 
 // Allow tests to run 30s
 jest.setTimeout(30000);
@@ -20,46 +23,47 @@ beforeEach(done => {
     rimraf(path.join(__dirname, "fixtures/dist"), done);
 });
 
+afterEach(done => {
+    // Reset Babel, node envs to test
+    delete process.env.NODE_ENV;
+    setEnv(ENVS.test);
+    done();
+});
+
 describe("FrontlineWebpackConfig", () => {
-    it("should be creatable without options", () => {
-        // eslint-disable-next-line no-new
-        new FrontlineWebpackConfig();
-    });
-
     it("should be creatable with options", () => {
-        // eslint-disable-next-line no-new
-        new FrontlineWebpackConfig({});
-    });
+        setEnv(ENVS.development);
 
-    it("should return an instance with the options assigned to it", () => {
-        const options = {};
-        const instance = new FrontlineWebpackConfig(options);
+        const webpackConfig = FrontlineWebpackConfig("modern", {});
 
-        expect(instance.options).toEqual(options);
+        expect(webpackConfig).toBeDefined();
     });
 });
 
 describe("FrontlineWebpackConfig inside webpack context", () => {
     it("should compile without errors", done => {
-        const compiler = webpack({
+        const frontlineWebpackConfig = FrontlineWebpackConfig("modern", {
             mode: "none",
-            context: path.join(__dirname, "fixtures/simple"),
-            plugins: [new FrontlineWebpackConfig()]
+            context: path.join(__dirname, "fixtures/simple")
         });
 
+        const compiler = webpack(frontlineWebpackConfig);
+
         compiler.run((err: any, stats: any) => {
-            expect(err).toEqual(null);
+            failTestIfWebpackCompilationFails(err, stats, done);
+
             expect(stats.compilation.errors).toEqual([]);
             done();
         });
     });
 
     it("should compile without errors in development mode", done => {
-        const compiler = webpack({
+        const frontlineWebpackConfig = FrontlineWebpackConfig("modern", {
             mode: "development",
-            context: path.join(__dirname, "fixtures/simple"),
-            plugins: [new FrontlineWebpackConfig()]
+            context: path.join(__dirname, "fixtures/simple")
         });
+
+        const compiler = webpack(frontlineWebpackConfig);
 
         compiler.run((err: any, stats: any) => {
             failTestIfWebpackCompilationFails(err, stats, done);
@@ -70,11 +74,12 @@ describe("FrontlineWebpackConfig inside webpack context", () => {
     });
 
     it("should compile without errors in production mode", done => {
-        const compiler = webpack({
+        const frontlineWebpackConfig = FrontlineWebpackConfig("modern", {
             mode: "production",
-            context: path.join(__dirname, "fixtures/simple"),
-            plugins: [new FrontlineWebpackConfig()]
+            context: path.join(__dirname, "fixtures/simple")
         });
+
+        const compiler = webpack(frontlineWebpackConfig);
 
         compiler.run((err: any, stats: any) => {
             failTestIfWebpackCompilationFails(err, stats, done);
@@ -82,47 +87,5 @@ describe("FrontlineWebpackConfig inside webpack context", () => {
             expect(stats.compilation.errors).toEqual([]);
             done();
         });
-    });
-
-    it("should allow to set the production mode mode", done => {
-        const referenceCompiler = webpack({
-            mode: "production",
-            context: path.join(__dirname, "fixtures/simple"),
-            plugins: [new FrontlineWebpackConfig()]
-        });
-        const compiler = webpack({
-            mode: "development",
-            context: path.join(__dirname, "fixtures/simple"),
-            plugins: [new FrontlineWebpackConfig({ mode: "production" })]
-        });
-        const rule = JSON.stringify(compiler.options.module.rules, null, 2);
-        const referenceRule = JSON.stringify(
-            referenceCompiler.options.module.rules,
-            null,
-            2
-        );
-        expect(rule).toEqual(referenceRule);
-        done();
-    });
-
-    it("should allow to set the development mode mode", done => {
-        const referenceCompiler = webpack({
-            mode: "development",
-            context: path.join(__dirname, "fixtures/simple"),
-            plugins: [new FrontlineWebpackConfig()]
-        });
-        const compiler = webpack({
-            mode: "production",
-            context: path.join(__dirname, "fixtures/simple"),
-            plugins: [new FrontlineWebpackConfig({ mode: "development" })]
-        });
-        const rule = JSON.stringify(compiler.options.module.rules, null, 2);
-        const referenceRule = JSON.stringify(
-            referenceCompiler.options.module.rules,
-            null,
-            2
-        );
-        expect(rule).toEqual(referenceRule);
-        done();
     });
 });
