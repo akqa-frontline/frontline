@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/akqa-frontline/frontline/compare/v0.2.0...v0.3.0) (2020-01-20)
+
+
+### Bug Fixes
+
+* **js-config-webpack-plugin:** remove unsupported svgr option ([692b6da](https://github.com/akqa-frontline/frontline/commit/692b6daa054a727a22adf662c654d020a85661e8))
+
+
+
+
+
 # 0.2.0 (2019-11-05)
 
 

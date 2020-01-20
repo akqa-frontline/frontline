@@ -5,15 +5,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.3.0](https://github.com/akqa-frontline/frontline/compare/v0.2.0...v0.3.0) (2020-01-20)
 
-**Note:** Version bump only for package @akqa-frontline/generator-frontline
-
-
-
-
-
-# 0.2.0 (2019-11-05)
-
 
 ### Features
 
-* initial commit ([96aa68c](https://github.com/akqa-frontline/frontline/commit/96aa68c334de5bc6c7f107598ed9fcedc7917af1))
+* **webpack-config:** refactor webpack-config ([58d1815](https://github.com/akqa-frontline/frontline/commit/58d18159ceff2623858683f27aaa0c562946470d))

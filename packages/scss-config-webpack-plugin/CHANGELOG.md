@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/akqa-frontline/frontline/compare/v0.2.0...v0.3.0) (2020-01-20)
+
+
+### Bug Fixes
+
+* **scss-config-webpack-plugin:** support default options, correct spelling ([bbc259f](https://github.com/akqa-frontline/frontline/commit/bbc259f6c09c5c62dc06d88610254e44f25f75fe))
+
+
+### Features
+
+* **scss-config-webpack-plugin:** sass-loader and related packages major version ([b4359b0](https://github.com/akqa-frontline/frontline/commit/b4359b07cb60cde442132d200ed06e141efb5655))
+
+
+
+
+
 # 0.2.0 (2019-11-05)
 
 
