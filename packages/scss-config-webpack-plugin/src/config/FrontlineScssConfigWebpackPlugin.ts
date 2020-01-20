@@ -8,13 +8,16 @@ export interface FrontlineScssWebpackPluginOptions {
 }
 
 // No defaults yet
-const defualtOptions: Partial<FrontlineScssWebpackPluginOptions> = {};
+const defaultOptions: Partial<FrontlineScssWebpackPluginOptions> = {};
 
 export class FrontlineScssConfigWebpackPlugin implements Plugin {
     options: Partial<FrontlineScssWebpackPluginOptions>;
 
     constructor(options?: Partial<FrontlineScssWebpackPluginOptions>) {
-        this.options = Object.assign({}, options);
+        this.options = {
+            ...defaultOptions,
+            ...options
+        };
     }
 
     apply(compiler: Compiler): void {
@@ -50,6 +53,7 @@ export class FrontlineScssConfigWebpackPlugin implements Plugin {
                       this.options
                   )
               );
+
         // Merge config
         compiler.options.plugins!.push(...config.plugins);
         compiler.hooks.afterEnvironment.tap(
