@@ -33,6 +33,7 @@ export = () => ({
                     "*.eot",
                     "*.woff",
                     "*.woff2",
+                    "*.ttf",
                     "*.html"
                 ]
             }
