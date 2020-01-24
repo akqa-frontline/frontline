@@ -24,13 +24,20 @@ const sharedPlugins = [
     new FrontlineAssetConfigWebpackPlugin()
 ];
 
+const sharedWebpackConfig = {
+    devServer: {
+        port: 8888
+    }
+};
+
 const legacyWebpackConfig = FrontlineWebpackConfig("legacy", {
     entry,
     plugins: [
         ...sharedPlugins,
         new FrontlineScssConfigWebpackPlugin({ browserslistEnv: "legacy" }),
         new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "legacy" })
-    ]
+    ],
+    ...sharedWebpackConfig
 });
 
 const modernWebpackConfig = FrontlineWebpackConfig("modern", {
@@ -39,7 +46,8 @@ const modernWebpackConfig = FrontlineWebpackConfig("modern", {
         ...sharedPlugins,
         new FrontlineScssConfigWebpackPlugin({ browserslistEnv: "modern" }),
         new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "modern" })
-    ]
+    ],
+    ...sharedWebpackConfig
 });
 
 module.exports = [legacyWebpackConfig, modernWebpackConfig];
