@@ -76,20 +76,17 @@ export function FrontlineWebpackConfig(
         name: `${browserslistEnv}-webpack`,
 
         ...(webpackConfig.entry && {
-            entry: [...(webpackConfig.entry as string | string[] | any)].filter(
-                Boolean
-            )
+            entry: webpackConfig.entry as string | string[] | any
         }),
 
         output: {
-            // path: isEnvProduction ? paths.appBuild : undefined,
             path: paths.appBuild,
             pathinfo: isEnvDevelopment,
             // There will be one main bundle, and one file per asynchronous chunk.
             // In development, it does not produce real files.
             filename: isEnvProduction
                 ? `static/js/[name].${browserslistEnv}.[contenthash:8].js`
-                : "static/js/bundle.js",
+                : "static/js/[name].js",
 
             chunkFilename: isEnvProduction
                 ? `static/js/[name].${browserslistEnv}.[contenthash:8].chunk.js`
