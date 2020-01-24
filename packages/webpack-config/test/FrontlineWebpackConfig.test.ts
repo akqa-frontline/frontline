@@ -88,4 +88,101 @@ describe("FrontlineWebpackConfig inside webpack context", () => {
             done();
         });
     });
+
+    it("should support entry as a single string", done => {
+        const frontlineWebpackConfig = FrontlineWebpackConfig("modern", {
+            mode: "production",
+            context: path.join(__dirname, "fixtures/simple"),
+            entry: "./src/index.js",
+            output: {
+                path: path.join(__dirname, "fixtures/dist")
+            }
+        });
+
+        const compiler = webpack(frontlineWebpackConfig);
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+
+            expect(stats.compilation.errors).toEqual([]);
+
+            const generatedFiles = glob.sync("./fixtures/dist/**/*.js", {
+                cwd: __dirname
+            });
+
+            expect(generatedFiles).toEqual([
+                "./fixtures/dist/static/js/main.chunk.js",
+                "./fixtures/dist/static/js/runtime-main.js"
+            ]);
+
+            done();
+        });
+    });
+
+    it("should support entry as an array of strings", done => {
+        const frontlineWebpackConfig = FrontlineWebpackConfig("modern", {
+            mode: "production",
+            context: path.join(__dirname, "fixtures/simple"),
+            entry: ["./src/index.js", "./src/second.js"],
+            output: {
+                path: path.join(__dirname, "fixtures/dist")
+            }
+        });
+
+        const compiler = webpack(frontlineWebpackConfig);
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+
+            expect(stats.compilation.errors).toEqual([]);
+
+            const generatedFiles = glob.sync("./fixtures/dist/**/*.js", {
+                cwd: __dirname
+            });
+
+            expect(generatedFiles).toEqual([
+                "./fixtures/dist/static/js/main.chunk.js",
+                "./fixtures/dist/static/js/runtime-main.js"
+            ]);
+
+            done();
+        });
+    });
+
+    it("should support entry as a map", done => {
+        setEnv(ENVS.production);
+
+        const frontlineWebpackConfig = FrontlineWebpackConfig("modern", {
+            mode: "production",
+            context: path.join(__dirname, "fixtures/simple"),
+            entry: {
+                namedIndex: "./src/index.js",
+                namedSecond: "./src/second.js"
+            },
+            output: {
+                path: path.join(__dirname, "fixtures/dist")
+            }
+        });
+
+        const compiler = webpack(frontlineWebpackConfig);
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+
+            expect(stats.compilation.errors).toEqual([]);
+
+            const generatedFiles = glob.sync("./fixtures/dist/**/*.js", {
+                cwd: __dirname
+            });
+
+            expect(generatedFiles).toEqual([
+                "./fixtures/dist/static/js/namedIndex.chunk.js",
+                "./fixtures/dist/static/js/namedSecond.chunk.js",
+                "./fixtures/dist/static/js/runtime-namedIndex.js",
+                "./fixtures/dist/static/js/runtime-namedSecond.js"
+            ]);
+
+            done();
+        });
+    });
 });
