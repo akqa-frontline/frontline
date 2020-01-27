@@ -39,24 +39,18 @@ export function FrontlineWebpackConfig(
         contentBase: paths.appPublic,
         watchContentBase: true,
         hot: true,
-        ...{
-            publicPath:
-                webpackConfig.devServer && webpackConfig.devServer.publicPath
-                    ? webpackConfig.devServer.publicPath
-                    : "/"
-        },
-        ...{
-            host:
-                webpackConfig.devServer && webpackConfig.devServer.host
-                    ? webpackConfig.devServer.host
-                    : "localhost"
-        },
-        ...{
-            port:
-                webpackConfig.devServer && webpackConfig.devServer.port
-                    ? webpackConfig.devServer.port
-                    : 8080
-        },
+        publicPath:
+            webpackConfig.devServer && webpackConfig.devServer.publicPath
+                ? webpackConfig.devServer.publicPath
+                : "/",
+        host:
+            webpackConfig.devServer && webpackConfig.devServer.host
+                ? webpackConfig.devServer.host
+                : "localhost",
+        port:
+            webpackConfig.devServer && webpackConfig.devServer.port
+                ? webpackConfig.devServer.port
+                : 8080,
         historyApiFallback: true,
         open: true,
         overlay: true
