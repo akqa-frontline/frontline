@@ -1,7 +1,6 @@
 import {
     Configuration as WebpackConfiguration,
-    Entry as WebpackEntry,
-    EntryFunc as WebpackEntryFunc,
+    DefinePlugin,
     Plugin as WebpackPlugin
 } from "webpack";
 
@@ -9,10 +8,12 @@ import path from "path";
 import fs from "fs";
 import HtmlWebpackEsModulesPlugin from "webpack-module-nomodule-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import WebpackAssetsManifest, { FileDescriptor } from "webpack-manifest-plugin";
-import paths from "./paths";
-
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
+import WebpackAssetsManifest, { FileDescriptor } from "webpack-manifest-plugin";
+import InterpolateHtmlPlugin from "react-dev-utils/InterpolateHtmlPlugin";
+
+import paths from "./paths";
+import getClientEnvironment from "./env";
 
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
@@ -32,6 +33,14 @@ export function FrontlineWebpackConfig(
             'browserslistEnv argument must be "modern" or "legacy" - support for single envs is coming in a later release'
         );
     }
+
+    // `publicUrl` is just like `publicPath`, but we will provide it to our app
+    // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
+    // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
+    const publicUrl = isEnvProduction
+        ? publicPath.slice(0, -1)
+        : isEnvDevelopment && "";
+    const env = getClientEnvironment(publicUrl as string);
 
     const devServerConfig: WebpackDevServerConfiguration = {
         compress: true,
@@ -113,8 +122,24 @@ export function FrontlineWebpackConfig(
         plugins: [
             new HtmlWebpackPlugin({
                 inject: true,
-                template: "./public/index.html"
+                template: "./public/index.html",
+                minify: isEnvProduction
+                    ? {
+                          removeComments: true,
+                          collapseWhitespace: true,
+                          removeRedundantAttributes: true,
+                          useShortDoctype: true,
+                          removeEmptyAttributes: true,
+                          removeStyleLinkTypeAttributes: true,
+                          keepClosingSlash: true,
+                          minifyJS: true,
+                          minifyCSS: true,
+                          minifyURLs: true
+                      }
+                    : undefined
             }),
+            new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+            new DefinePlugin(env.stringified),
 
             new HtmlWebpackEsModulesPlugin(browserslistEnv),
 
