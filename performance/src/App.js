@@ -11,6 +11,10 @@ const Lazy = loadable(() => import("./components/lazy/Lazy"));
 
 const theLibraryInstance = new TheLibrary();
 
+import locale from "../public/translation/da-DK";
+
+console.warn("ooo lala", locale, process.env);
+
 class App extends PureComponent {
     static propsTypes = {
         initialProps: PropTypes.object
