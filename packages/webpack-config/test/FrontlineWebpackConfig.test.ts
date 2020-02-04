@@ -3,7 +3,9 @@ import {
     failTestIfWebpackCompilationFails,
     setEnv
 } from "../../../test-utils/src/test-utils";
+
 import { FrontlineWebpackConfig } from "../src";
+import paths from "../src/paths";
 
 const path = require("path");
 const rimraf = require("rimraf");
@@ -37,6 +39,34 @@ describe("FrontlineWebpackConfig", () => {
         const webpackConfig = FrontlineWebpackConfig("modern", {});
 
         expect(webpackConfig).toBeDefined();
+    });
+
+    it("should accept customizing port, host and publicPath for devServer and nothing else", () => {
+        const webpackConfig = FrontlineWebpackConfig("modern", {
+            devServer: {
+                port: 666,
+                host: "foobar",
+                publicPath: "barfoo",
+                // you should not be allowed to change this
+                overlay: false
+            }
+        });
+
+        expect(webpackConfig.devServer).toEqual({
+            compress: true,
+            clientLogLevel: "none",
+            contentBase: paths.appPublic,
+            watchContentBase: true,
+            hot: true,
+            //
+            port: 666,
+            host: "foobar",
+            publicPath: "barfoo",
+            //
+            historyApiFallback: true,
+            open: true,
+            overlay: true
+        });
     });
 });
 
