@@ -164,22 +164,13 @@ describe("FrontlineAssetConfigWebpackPlugin inside webpack context", () => {
                 cwd: __dirname
             });
 
-            const assetFiles = glob.sync("./fixtures/dist/static/media/*.*", {
-                cwd: __dirname
-            });
-
             expect(rootFiles).toEqual([
                 "./fixtures/dist/main.js",
                 "./fixtures/dist/manifest.json"
             ]);
-            expect(rootFiles.indexOf("./fixtures/dist/index.html")).toEqual(-1);
 
-            expect(assetFiles).toEqual([
-                "./fixtures/dist/static/media/data.json"
-            ]);
-            expect(
-                assetFiles.indexOf("./fixtures/dist/static/media/1kb.png")
-            ).toEqual(-1);
+            expect(rootFiles.indexOf("./fixtures/dist/index.html")).toEqual(-1);
+            expect(rootFiles.indexOf("./fixtures/dist/about.html")).toEqual(-1);
 
             done();
         });
