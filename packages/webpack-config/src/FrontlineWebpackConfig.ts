@@ -187,9 +187,15 @@ export function FrontlineWebpackConfig(
                             {}
                         );
 
-                        const entrypointFiles = entrypoints.main.filter(
-                            fileName => !fileName.endsWith(".map")
-                        );
+                        const entrypointFiles: {
+                            [key: string]: Array<string>;
+                        } = {};
+
+                        Object.keys(entrypoints).forEach(k => {
+                            entrypointFiles[k] = entrypoints[k].filter(
+                                fileName => !fileName.endsWith(".map")
+                            );
+                        });
 
                         manifest[browserslistEnv].files = manifestFiles;
                         manifest[browserslistEnv].entrypoints = entrypointFiles;
