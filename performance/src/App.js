@@ -11,7 +11,13 @@ const Lazy = loadable(() => import("./components/lazy/Lazy"));
 
 const theLibraryInstance = new TheLibrary();
 
+import locale from "../public/translation/da-DK";
+
 class App extends PureComponent {
+    state = {
+        env: process.env
+    };
+
     static propsTypes = {
         initialProps: PropTypes.object
     };
@@ -41,6 +47,7 @@ class App extends PureComponent {
         return (
             <div className="app">
                 <h1>Performance App Ny</h1>
+                <p>{locale.hello}</p>
                 <Eager msg="im not dynamically imported :-/" />
                 <Lazy msg="im AM dynamically imported :-D" />
                 <hr />

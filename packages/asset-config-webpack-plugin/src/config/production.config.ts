@@ -5,38 +5,13 @@ export = () => ({
         rules: []
     },
     plugins: [
-        new CopyPlugin(
-            [
-                {
-                    from: "public/**/*",
-                    to: "",
-                    flatten: true
-                },
-                {
-                    from: "src/assets/**/*",
-                    to: "static/media/",
-                    flatten: true
-                }
-            ],
+        new CopyPlugin([
             {
-                ignore: [
-                    // All these files are handled by specific plugins
-                    "*.js",
-                    "*.jsx",
-                    "*.css",
-                    "*.scss",
-                    "*.gif",
-                    "*.jpg",
-                    "*.jpeg",
-                    "*.png",
-                    "*.svg",
-                    "*.eot",
-                    "*.woff",
-                    "*.woff2",
-                    "*.ttf",
-                    "*.html"
-                ]
+                from: "./public",
+                to: "./",
+                // html files is controlled by html-webpack-plugin in our webpack-config
+                ignore: ["*.html"]
             }
-        )
+        ])
     ]
 });
