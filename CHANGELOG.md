@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/akqa-frontline/frontline/compare/v0.3.2...v0.4.0) (2020-02-05)
+
+
+### Bug Fixes
+
+* **webpack-config:** support multiple entry points in asset-manifest ([cc18805](https://github.com/akqa-frontline/frontline/commit/cc18805d314181e446b015c0a419afcfbd1e2621))
+
+
+### Features
+
+* **webpack-config:** add support for .env files, add interpolate-html-webpack-plugin ([d33a91e](https://github.com/akqa-frontline/frontline/commit/d33a91e99b854ffb9578d49727378321057c6607))
+
+
+
+
+
 ## [0.3.2](https://github.com/akqa-frontline/frontline/compare/v0.3.1...v0.3.2) (2020-02-05)
 
 **Note:** Version bump only for package frontline

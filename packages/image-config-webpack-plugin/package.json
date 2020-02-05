@@ -1,6 +1,6 @@
 {
   "name": "@akqa-frontline/image-config-webpack-plugin",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
