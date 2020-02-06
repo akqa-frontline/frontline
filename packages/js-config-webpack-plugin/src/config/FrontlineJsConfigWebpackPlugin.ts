@@ -54,13 +54,7 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
             return resolvedRelativeConfig.config.filepath;
         }
 
-        console.warn(
-            chalk.yellow(`Couldn't find an appropriate babel configuration file in the current directory.
-Please check if the name of the file is correct and if it's in the correct directory.
-For further information please check the documentation: https://babeljs.io/docs/en/babelrc.html`)
-        );
-
-        return path.resolve(__dirname, "./config/babel.config.base.js");
+        return path.resolve(__dirname, "./babel.config.js");
     }
 
     apply(compiler: Compiler): void {
@@ -83,10 +77,10 @@ For further information please check the documentation: https://babeljs.io/docs/
                   !compiler.options.mode;
 
         const config = isProductionLikeMode
-            ? require("./config/production.config")(
+            ? require("./production.config")(
                   Object.assign({ mode: "production" }, options)
               )
-            : require("./config/development.config")(
+            : require("./development.config")(
                   Object.assign({ mode: "development" }, options)
               );
 

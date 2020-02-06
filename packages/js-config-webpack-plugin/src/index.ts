@@ -1,3 +1,4 @@
-import { FrontlineJsConfigWebpackPlugin } from "./FrontlineJsConfigWebpackPlugin";
+import { FrontlineJsConfigWebpackPlugin } from "./config/FrontlineJsConfigWebpackPlugin";
+import { FrontlineBabelConfig } from "./config/FrontlineBabelConfig";
 
-export { FrontlineJsConfigWebpackPlugin };
+export { FrontlineJsConfigWebpackPlugin, FrontlineBabelConfig };

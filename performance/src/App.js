@@ -38,6 +38,8 @@ class App extends PureComponent {
     theLibrarySync = () => {
         theLibraryInstance.iCanDoSpreadOnArrays();
         theLibraryInstance.iCanDoSpreadOnObjectLiterals();
+        theLibraryInstance.iCanDoNullishCoalescingOperator();
+        theLibraryInstance.iCanDoOptionalChaining();
         console.info(theLibraryInstance.iCanHaveClassProperties);
     };
 
