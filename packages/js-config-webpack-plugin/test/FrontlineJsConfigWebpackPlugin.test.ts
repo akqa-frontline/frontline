@@ -221,10 +221,12 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
         done();
     });
 
-    it("should load the babel fallback config", done => {
+    it("should load the default babel config", done => {
         const webpackContext = path.join(__dirname, "fixtures/babel-no-babel");
         const babelConfigFileContext = path.join(__dirname, "../src/config");
-        const babelConfigFileName = "babel.config.base.js";
+        const babelConfigFileName = "babel.config.js";
+
+        setEnv(ENVS.development);
 
         const instance = webpack({
             mode: "development",
@@ -238,9 +240,6 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
         expect(ruleOptions.extends).toEqual(
             path.resolve(babelConfigFileContext, babelConfigFileName)
         );
-
-        // Test that we indeed do warn users about missing babelrc file
-        expect(console.warn).toHaveBeenCalled();
 
         done();
     });
@@ -842,6 +841,54 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
         const webpackContext = path.join(
             __dirname,
             "fixtures/language-features/transform-destructuring/"
+        );
+
+        setEnv(ENVS.production);
+
+        const compiler = webpack({
+            mode: "production",
+            context: webpackContext,
+            plugins: [new FrontlineJsConfigWebpackPlugin()]
+        });
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+            const generatedFiles = glob.sync("./fixtures/dist/**/*.js", {
+                cwd: __dirname
+            });
+            expect(generatedFiles).toEqual(["./fixtures/dist/main.js"]);
+            done();
+        });
+    });
+
+    it("supports optional chaining", done => {
+        const webpackContext = path.join(
+            __dirname,
+            "fixtures/language-features/optional-chaining/"
+        );
+
+        setEnv(ENVS.production);
+
+        const compiler = webpack({
+            mode: "production",
+            context: webpackContext,
+            plugins: [new FrontlineJsConfigWebpackPlugin()]
+        });
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+            const generatedFiles = glob.sync("./fixtures/dist/**/*.js", {
+                cwd: __dirname
+            });
+            expect(generatedFiles).toEqual(["./fixtures/dist/main.js"]);
+            done();
+        });
+    });
+
+    it("supports nullish coalescing operator", done => {
+        const webpackContext = path.join(
+            __dirname,
+            "fixtures/language-features/nullish-coalescing-operator/"
         );
 
         setEnv(ENVS.production);

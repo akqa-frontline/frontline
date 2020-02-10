@@ -1,5 +1,5 @@
 export default class TheLibrary {
-    iCanHaveClassProperties = true;
+    iCanHaveClassProperties = "this is a class property";
 
     iCanHaveDynamicImportAsyncAwaitAndAllThat = async () => {
         const heavyFunction = await import("./heavy-dependency.js");
@@ -14,9 +14,8 @@ export default class TheLibrary {
         const parts = ["shoulders", "knees"];
         const lyrics = ["head", ...parts, "and", "toes"];
 
-        console.info(lyrics);
-
-        return lyrics;
+        // expected output: ["head", "shoulders", "knees", "and", "toes"];
+        console.log("spread operator - array", lyrics);
     };
 
     iCanDoSpreadOnObjectLiterals = () => {
@@ -25,8 +24,28 @@ export default class TheLibrary {
 
         const mergedObject = { ...obj1, ...obj2 };
 
-        console.info(mergedObject);
+        // expected output: {foo: "baz", x: 42, y: 13};
+        console.log("spread operator - object", mergedObject);
+    };
 
-        return mergedObject;
+    iCanDoNullishCoalescingOperator = () => {
+        const baz = 0 ?? 42;
+
+        // expected output: 0
+        console.log("nullish coalescing operator", baz);
+    };
+
+    iCanDoOptionalChaining = () => {
+        const adventurer = {
+            name: "Alice",
+            cat: {
+                name: "Dinah"
+            }
+        };
+
+        const dogName = adventurer.dog?.name;
+
+        // expected output: undefined
+        console.log("optional chaining", dogName);
     };
 }

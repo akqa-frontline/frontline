@@ -1,7 +1,7 @@
 const browserslist = require("browserslist");
 const fs = require("fs");
 
-export function FrontlineBabelConfig(cwd?: string) {
+export function FrontlineBabelConfig() {
     const isEnvDevelopment = process.env.NODE_ENV === "development";
     const isEnvProduction = process.env.NODE_ENV === "production";
 
@@ -14,7 +14,7 @@ export function FrontlineBabelConfig(cwd?: string) {
         );
     }
 
-    const projectDirectory = fs.realpathSync(cwd || process.cwd());
+    const projectDirectory = fs.realpathSync(process.cwd());
     const browserslistConfig = browserslist.findConfig(projectDirectory);
 
     return {
@@ -29,11 +29,19 @@ export function FrontlineBabelConfig(cwd?: string) {
                             // Set the corejs version we are using to avoid warnings in console
                             corejs: 3,
                             useBuiltIns: "usage",
+
                             targets: {
-                                ...(Object.keys(browserslistConfig).length > 0
-                                    ? { browsers: browserslistConfig["legacy"] }
-                                    : { browsers: browserslistConfig }),
-                                esmodules: false
+                                esmodules: false,
+                                ...(browserslistConfig
+                                    ? Object.keys(browserslistConfig).indexOf(
+                                          "legacy"
+                                      ) > -1
+                                        ? {
+                                              browsers:
+                                                  browserslistConfig["legacy"]
+                                          }
+                                        : { browsers: browserslistConfig }
+                                    : { browsers: "defaults" })
                             }
                         }
                     ],
@@ -48,6 +56,9 @@ export function FrontlineBabelConfig(cwd?: string) {
                 plugins: [
                     isEnvDevelopment && "react-hot-loader/babel",
                     require("@babel/plugin-syntax-dynamic-import").default,
+                    require("@babel/plugin-proposal-nullish-coalescing-operator")
+                        .default,
+                    require("@babel/plugin-proposal-optional-chaining").default,
                     [
                         require("@babel/plugin-proposal-class-properties")
                             .default,
@@ -87,6 +98,9 @@ export function FrontlineBabelConfig(cwd?: string) {
                 plugins: [
                     isEnvDevelopment && "react-hot-loader/babel",
                     require("@babel/plugin-syntax-dynamic-import").default,
+                    require("@babel/plugin-proposal-nullish-coalescing-operator")
+                        .default,
+                    require("@babel/plugin-proposal-optional-chaining").default,
                     [
                         require("@babel/plugin-proposal-class-properties")
                             .default,
