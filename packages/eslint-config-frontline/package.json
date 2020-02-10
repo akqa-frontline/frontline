@@ -1,0 +1,42 @@
+{
+  "name": "@akqa-frontline/eslint-config-frontline",
+  "version": "0.5.0",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "babel-eslint": "10.x",
+    "eslint": "6.x",
+    "eslint-config-prettier": "6.x",
+    "eslint-config-react-app": "5.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-prettier": "^3.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "1.x",
+    "prettier": "1.x"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "2.19.0",
+    "@typescript-eslint/parser": "2.19.0",
+    "babel-eslint": "10.0.3",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-config-react-app": "5.2.0",
+    "eslint-plugin-flowtype": "3.13.0",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.18.3",
+    "eslint-plugin-react-hooks": "1.7.0",
+    "prettier": "1.19.1"
+  },
+  "engines": {
+    "npm": ">=5",
+    "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
