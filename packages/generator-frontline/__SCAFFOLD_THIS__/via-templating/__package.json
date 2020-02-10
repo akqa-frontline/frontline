@@ -1,0 +1,68 @@
+{
+  "name": "%REPLACE%",
+  "description": "",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --mode production",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development",
+    "analyze:legacy": "webpack-bundle-analyzer dist/stats.legacy.json -p 8888",
+    "analyze:modern": "webpack-bundle-analyzer dist/stats.modern.json -p 8889",
+    "prettier": "prettier --write \"src/**/*.*(js|jsx|json|css|scss)\""
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "bitbucket.org/displaydk/%REPLACE%"
+  },
+  "devDependencies": {
+    "@akqa-frontline/asset-config-webpack-plugin": "%LATEST%",
+    "@akqa-frontline/eslint-config-frontline": "%LATEST%",
+    "@akqa-frontline/font-config-webpack-plugin": "%LATEST%",
+    "@akqa-frontline/image-config-webpack-plugin": "%LATEST%",
+    "@akqa-frontline/js-config-webpack-plugin": "%LATEST%",
+    "@akqa-frontline/scss-config-webpack-plugin": "%LATEST%",
+    "@akqa-frontline/stylelint-config-frontline": "%LATEST%",
+    "@akqa-frontline/webpack-config": "%LATEST%",
+    "@typescript-eslint/eslint-plugin": "2.19.0",
+    "@typescript-eslint/parser": "2.19.0",
+    "babel-eslint": "10.0.3",
+    "cross-env": "6.0.3",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-config-react-app": "5.2.0",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.18.3",
+    "eslint-plugin-react-hooks": "1.7.0",
+    "husky": "4.2.1",
+    "lint-staged": "10.0.7",
+    "node-sass": "4.13.1",
+    "prettier": "1.19.1",
+    "rimraf": "3.0.0",
+    "stylelint": "13.1.0",
+    "stylelint-config-prettier": "8.0.1",
+    "stylelint-prettier": "1.1.2",
+    "webpack": "4.41.2",
+    "webpack-bundle-analyzer": "3.6.0",
+    "webpack-cli": "3.3.10",
+    "webpack-dev-server": "3.9.0"
+  },
+  "dependencies": {
+    "@hot-loader/react-dom": "16.11.0",
+    "@loadable/component": "5.11.0",
+    "core-js": "3.4.1",
+    "prop-types": "15.7.2",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "react-hot-loader": "4.12.18"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.*(js|jsx|json|css|scss)": "prettier --write"
+  }
+}
