@@ -20,7 +20,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **js-config-webpack-plugin, webpack-config:** migrate FrontlineBabelConfig to the js-config-webpac ([0423155](https://github.com/akqa-frontline/frontline/commit/0423155fa97a2071f934906b3262e963fa2d2af1))
+* **js-config-webpack-plugin, webpack-config:** migrate FrontlineBabelConfig to the js-config-webpack ([0423155](https://github.com/akqa-frontline/frontline/commit/0423155fa97a2071f934906b3262e963fa2d2af1))
 
 
 
