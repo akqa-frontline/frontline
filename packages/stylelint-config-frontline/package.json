@@ -1,6 +1,6 @@
 {
   "name": "@akqa-frontline/stylelint-config-frontline",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "license": "MIT",
   "files": [
     "index.js"

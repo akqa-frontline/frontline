@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/akqa-frontline/frontline/compare/v0.6.0...v0.6.2) (2020-02-19)
+
+
+### Bug Fixes
+
+* **repo:** a bogus release was created for 0.6.0 containing no published files ([5d43620](https://github.com/akqa-frontline/frontline/commit/5d436209094eac8e9a409b85ff25051ee4af4b1c))
+* **webpack-config:** do not import/export FrontlineBabelConfig ([c595417](https://github.com/akqa-frontline/frontline/commit/c595417ed8e166546f58efdf3995b7804c266390))
+
+
+
+
+
 # [0.6.0](https://github.com/akqa-frontline/frontline/compare/v0.5.0...v0.6.0) (2020-02-19)
 
 
