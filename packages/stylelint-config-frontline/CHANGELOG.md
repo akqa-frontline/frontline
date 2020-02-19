@@ -1,0 +1,11 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [0.6.0](https://github.com/akqa-frontline/frontline/compare/v0.5.0...v0.6.0) (2020-02-19)
+
+
+### Features
+
+* **stylelint-config-frontline:** add stylelint-config-frontline package ([ec5a9d7](https://github.com/akqa-frontline/frontline/commit/ec5a9d7c2eba2860eac1a6db460541a6773c604d))
