@@ -1,0 +1,29 @@
+{
+  "name": "@akqa-frontline/stylelint-config-frontline",
+  "version": "0.5.0",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "prettier": "1.x",
+    "stylelint": "13.x",
+    "stylelint-config-recommended-scss": "4.x",
+    "stylelint-prettier": "1.x",
+    "stylelint-scss": "3.x"
+  },
+  "dependencies": {
+    "prettier": "1.19.1",
+    "stylelint": "13.1.0",
+    "stylelint-config-recommended-scss": "4.2.0",
+    "stylelint-prettier": "1.1.2",
+    "stylelint-scss": "3.14.2"
+  },
+  "engines": {
+    "npm": ">=5",
+    "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
