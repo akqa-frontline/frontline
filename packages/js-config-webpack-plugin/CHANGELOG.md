@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/akqa-frontline/frontline/compare/v0.6.2...v0.7.0) (2020-02-20)
+
+
+### Bug Fixes
+
+* **js-config-webpack-plugin:** do not ship core-js to modern browsers ([2e83ca5](https://github.com/akqa-frontline/frontline/commit/2e83ca5c898e0301de75018fb6ea5ad826389b4f))
+
+
+
+
+
 ## [0.6.2](https://github.com/akqa-frontline/frontline/compare/v0.6.0...v0.6.2) (2020-02-19)
 
 **Note:** Version bump only for package @akqa-frontline/js-config-webpack-plugin
