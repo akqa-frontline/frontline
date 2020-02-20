@@ -71,7 +71,10 @@ export function FrontlineBabelConfig() {
                     ],
                     isEnvProduction && [
                         require("@babel/plugin-transform-runtime").default,
-                        { corejs: 3 }
+                        {
+                            corejs: false,
+                            helpers: true
+                        }
                     ]
                 ].filter(Boolean)
             },
@@ -110,10 +113,6 @@ export function FrontlineBabelConfig() {
                         require("babel-plugin-transform-react-remove-prop-types")
                             .default,
                         { removeImport: true }
-                    ],
-                    isEnvProduction && [
-                        require("@babel/plugin-transform-runtime").default,
-                        { corejs: false }
                     ]
                 ].filter(Boolean)
             }
