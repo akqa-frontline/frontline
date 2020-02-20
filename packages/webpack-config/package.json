@@ -32,8 +32,9 @@
 		"webpack": "4.41.2",
 		"webpack-bundle-analyzer": "3.6.0",
 		"webpack-dev-server": "3.9.0",
-		"webpack-manifest-plugin": "^2.2.0",
-		"webpack-module-nomodule-plugin": "^0.2.1"
+		"webpack-fix-style-only-entries": "0.4.0",
+		"webpack-manifest-plugin": "2.2.0",
+		"webpack-module-nomodule-plugin": "0.2.1"
 	},
 	"devDependencies": {
 		"@types/html-webpack-plugin": "^3.2.1",
