@@ -11,6 +11,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
 import WebpackAssetsManifest, { FileDescriptor } from "webpack-manifest-plugin";
 import InterpolateHtmlPlugin from "react-dev-utils/InterpolateHtmlPlugin";
+import FixStyleOnlyEntriesPlugin from "webpack-fix-style-only-entries";
 
 import paths from "./paths";
 import getClientEnvironment from "./env";
@@ -77,8 +78,11 @@ export function FrontlineWebpackConfig(
                 chunks: "all"
             },
             runtimeChunk: {
-                name: (entrypoint: { name: string }): string =>
-                    `runtime-${entrypoint.name}`
+                // dont generate runtime chunks for CSS entries
+                name: (entrypoint: { name: string }): string | boolean =>
+                    entrypoint.name.indexOf("css") > -1
+                        ? false
+                        : `runtime-${entrypoint.name}`
             }
         },
 
@@ -151,6 +155,9 @@ export function FrontlineWebpackConfig(
             new DefinePlugin(env.stringified),
 
             new HtmlWebpackEsModulesPlugin(browserslistEnv),
+
+            // Remove JS for CSS only entrypoints ({entry: "styles.css"})
+            isEnvProduction && new FixStyleOnlyEntriesPlugin(),
 
             ...(webpackConfig.plugins ? (webpackConfig.plugins as any) : []),
 
