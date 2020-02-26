@@ -66,7 +66,10 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                         options: {
                             sourceMap: false,
                             importLoaders: 3,
-                            modules: true
+                            modules: {
+                                localIdentName:
+                                    "[name]__[local]--[hash:base64:5]"
+                            }
                         }
                     },
                     {
