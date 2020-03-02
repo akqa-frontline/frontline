@@ -12,7 +12,8 @@
     "update-snapshots": "jest -u --runInBand"
   },
   "peerDependencies": {
-    "webpack": ">=4.0.0"
+    "webpack": ">=4.0.0",
+    "node-sass": ">=4.0.0"
   },
   "dependencies": {
     "autoprefixer": "9.7.2",
