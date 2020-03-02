@@ -1,7 +1,7 @@
 {
   "name": "@akqa-frontline/eslint-config-frontline",
   "version": "0.7.0",
-  "license": "MIT",
+  "license": "ISC",
   "files": [
     "index.js"
   ],

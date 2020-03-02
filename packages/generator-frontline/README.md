@@ -1,11 +1,6 @@
-# `generator-frontline`
+# @akqa-frontline/generator-frontline
 
-> TODO: description
+![GitHub](https://img.shields.io/github/license/akqa-frontline/frontline)
+![npm (scoped)](https://img.shields.io/npm/v/@akqa-frontline/generator-frontline)
 
-## Usage
-
-```
-const generatorFrontline = require('generator-frontline');
-
-// TODO: DEMONSTRATE API
-```
+_this package is not yet documented_

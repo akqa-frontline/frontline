@@ -1,7 +1,7 @@
 {
   "name": "@akqa-frontline/generator-frontline",
   "version": "0.7.0",
-  "license": "MIT",
+  "license": "ISC",
   "main": "lib/generator-frontline.js",
   "directories": {
     "lib": "lib"
