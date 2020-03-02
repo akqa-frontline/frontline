@@ -1,6 +1,11 @@
-# `eslint-config-frontline`
+# @akqa-frontline/eslint-config-frontline
 
-Documentation soon(tm)
+![GitHub](https://img.shields.io/github/license/akqa-frontline/frontline)
+![npm (scoped)](https://img.shields.io/npm/v/@akqa-frontline/eslint-config-frontline)
+
+_this package is not yet fully documented_
+
+ESlint configuration for AKQA Denmark's frontend teams
 
 #### Install
 
