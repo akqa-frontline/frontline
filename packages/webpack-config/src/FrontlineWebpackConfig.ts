@@ -45,7 +45,6 @@ export function FrontlineWebpackConfig(
 
     const devServerConfig: WebpackDevServerConfiguration = {
         compress: true,
-        clientLogLevel: "none",
         contentBase: paths.appPublic,
         watchContentBase: true,
         hot: true,
@@ -75,7 +74,8 @@ export function FrontlineWebpackConfig(
         optimization: {
             minimize: isEnvProduction,
             splitChunks: {
-                chunks: "all"
+                chunks: "all",
+                name: false
             },
             runtimeChunk: {
                 // dont generate runtime chunks for CSS entries
@@ -108,11 +108,11 @@ export function FrontlineWebpackConfig(
             // In development, it does not produce real files.
             filename: isEnvProduction
                 ? `static/js/[name].${browserslistEnv}.[contenthash:8].js`
-                : "static/js/[name].js",
+                : `static/js/[name].${browserslistEnv}.js`,
 
             chunkFilename: isEnvProduction
                 ? `static/js/[name].${browserslistEnv}.[contenthash:8].chunk.js`
-                : "static/js/[name].chunk.js",
+                : `static/js/[name].${browserslistEnv}.chunk.js`,
 
             publicPath: publicPath,
 
@@ -222,9 +222,7 @@ export function FrontlineWebpackConfig(
 
         resolve: {
             alias: {
-                ...(isEnvDevelopment
-                    ? { "react-dom": "@hot-loader/react-dom" }
-                    : {})
+                "react-dom": "@hot-loader/react-dom"
             }
         },
 

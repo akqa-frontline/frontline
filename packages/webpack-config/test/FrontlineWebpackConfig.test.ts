@@ -54,7 +54,6 @@ describe("FrontlineWebpackConfig", () => {
 
         expect(webpackConfig.devServer).toEqual({
             compress: true,
-            clientLogLevel: "none",
             contentBase: paths.appPublic,
             watchContentBase: true,
             hot: true,
@@ -141,8 +140,8 @@ describe("FrontlineWebpackConfig inside webpack context", () => {
             });
 
             expect(generatedFiles).toEqual([
-                "./fixtures/dist/static/js/main.chunk.js",
-                "./fixtures/dist/static/js/runtime-main.js"
+                "./fixtures/dist/static/js/main.modern.chunk.js",
+                "./fixtures/dist/static/js/runtime-main.modern.js"
             ]);
 
             done();
@@ -171,8 +170,8 @@ describe("FrontlineWebpackConfig inside webpack context", () => {
             });
 
             expect(generatedFiles).toEqual([
-                "./fixtures/dist/static/js/main.chunk.js",
-                "./fixtures/dist/static/js/runtime-main.js"
+                "./fixtures/dist/static/js/main.modern.chunk.js",
+                "./fixtures/dist/static/js/runtime-main.modern.js"
             ]);
 
             done();
@@ -206,10 +205,10 @@ describe("FrontlineWebpackConfig inside webpack context", () => {
             });
 
             expect(generatedFiles).toEqual([
-                "./fixtures/dist/static/js/namedIndex.chunk.js",
-                "./fixtures/dist/static/js/namedSecond.chunk.js",
-                "./fixtures/dist/static/js/runtime-namedIndex.js",
-                "./fixtures/dist/static/js/runtime-namedSecond.js"
+                "./fixtures/dist/static/js/namedIndex.modern.chunk.js",
+                "./fixtures/dist/static/js/namedSecond.modern.chunk.js",
+                "./fixtures/dist/static/js/runtime-namedIndex.modern.js",
+                "./fixtures/dist/static/js/runtime-namedSecond.modern.js"
             ]);
 
             done();
