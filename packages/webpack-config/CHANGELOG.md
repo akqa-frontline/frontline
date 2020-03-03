@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.1](https://github.com/akqa-frontline/frontline/compare/v0.7.0...v0.7.1) (2020-03-03)
+
+
+### Bug Fixes
+
+* **webpack-config:** add browserslist env name to chunks and entry filenames in development mode ([#11](https://github.com/akqa-frontline/frontline/issues/11)) ([0323a9d](https://github.com/akqa-frontline/frontline/commit/0323a9d81dad7814a209a3aafacdf8aa167e6006))
+
+
+
+
+
 # [0.7.0](https://github.com/akqa-frontline/frontline/compare/v0.6.2...v0.7.0) (2020-02-20)
 
 
