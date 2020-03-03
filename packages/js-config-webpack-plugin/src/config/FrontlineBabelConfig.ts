@@ -54,7 +54,7 @@ export function FrontlineBabelConfig() {
                     ]
                 ],
                 plugins: [
-                    isEnvDevelopment && "react-hot-loader/babel",
+                    "react-hot-loader/babel",
                     require("@babel/plugin-syntax-dynamic-import").default,
                     require("@babel/plugin-proposal-nullish-coalescing-operator")
                         .default,
@@ -99,7 +99,7 @@ export function FrontlineBabelConfig() {
                     ]
                 ],
                 plugins: [
-                    isEnvDevelopment && "react-hot-loader/babel",
+                    "react-hot-loader/babel",
                     require("@babel/plugin-syntax-dynamic-import").default,
                     require("@babel/plugin-proposal-nullish-coalescing-operator")
                         .default,
