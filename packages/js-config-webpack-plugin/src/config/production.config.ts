@@ -39,7 +39,7 @@ export = (options: FrontlineJsConfigWebpackPluginOptions) => ({
             }
         ]
     },
-    plugins: [],
+    plugins: options.plugins,
     optimization: {
         minimizer: [
             options.browserslistEnv === "modern" && [

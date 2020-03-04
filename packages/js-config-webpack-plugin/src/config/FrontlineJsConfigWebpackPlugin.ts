@@ -1,5 +1,7 @@
 import { Compiler, Plugin } from "webpack";
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
+const fs = require("fs");
 const path = require("path");
 const chalk = require("chalk");
 const findPackageData = require("@babel/core/lib/config/files/package")
@@ -13,6 +15,8 @@ export interface FrontlineJsConfigWebpackPluginOptions {
     mode: "production" | "development" | "none";
     browserslistEnv: string;
     babelConfigFile?: string;
+    tsConfigFile?: string;
+    plugins?: any;
 }
 
 const defaultConfig = {
@@ -57,6 +61,28 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
         return path.resolve(__dirname, "./babel.config.js");
     }
 
+    resolveTypeScriptConfigFilePath(
+        contextPath: string,
+        browserslistEnv = defaultConfig.browserslistEnv
+    ) {
+        const searchLocations = [
+            path.join(contextPath, `tsconfig.${browserslistEnv}.json`),
+            path.join(contextPath, "tsconfig.json")
+        ];
+
+        for (const filePath of searchLocations) {
+            if (fs.existsSync(filePath)) {
+                return filePath;
+            }
+        }
+
+        throw chalk.bgRed(
+            `Could not find an appropriate typescript configuration file in directory.\nSearched the following locations:\n${searchLocations.join(
+                "\n"
+            )}`
+        );
+    }
+
     apply(compiler: Compiler): void {
         const defaultOptions = {
             babelConfigFile:
@@ -64,8 +90,24 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
                 this.resolveBabelConfigFilePath(
                     compiler.context,
                     compiler.options.mode || this.options.mode
-                )
+                ),
+            tsConfigFile:
+                this.options.tsConfigFile ||
+                this.resolveTypeScriptConfigFilePath(
+                    compiler.context,
+                    this.options.browserslistEnv
+                ),
+            plugins: this.options.plugins || []
         };
+
+        if (this.options.browserslistEnv === "modern") {
+            defaultOptions.plugins = this.options.plugins || [
+                new ForkTsCheckerWebpackPlugin({
+                    tsconfig: defaultOptions.tsConfigFile,
+                    eslint: true
+                })
+            ];
+        }
 
         const options = Object.assign(this.options, defaultOptions);
 
@@ -90,12 +132,49 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
             "FrontlineJsConfigWebpackPlugin",
             () => {
                 compiler.options.module!.rules.push(...config.module.rules);
+
+                let tsConfig = require(defaultOptions.tsConfigFile);
+                if (tsConfig.extends) {
+                    tsConfig = require(path.join(
+                        compiler.context,
+                        tsConfig.extends
+                    ));
+                }
+
+                if (
+                    tsConfig.compilerOptions &&
+                    tsConfig.compilerOptions.paths &&
+                    tsConfig.compilerOptions.baseUrl
+                ) {
+                    Object.keys(tsConfig.compilerOptions.paths).reduce(
+                        (aliases = {}, aliasName) => {
+                            const baseUrl = tsConfig.compilerOptions.baseUrl.replace(
+                                "/*",
+                                ""
+                            );
+                            const aliasPath = tsConfig.compilerOptions.paths[
+                                aliasName
+                            ][0].replace("/*", "");
+                            aliases[aliasName.replace("/*", "")] = path.join(
+                                compiler.context,
+                                baseUrl,
+                                aliasPath
+                            );
+                            return aliases;
+                        },
+                        compiler.options.resolve!.alias
+                    );
+                }
             }
         );
 
-        const javascriptExtensions = [".js", ".jsx", ".mjs"].filter(
-            ext => !compiler.options.resolve!.extensions!.includes(ext)
-        );
+        const javascriptExtensions = [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            ".mjs"
+        ].filter(ext => !compiler.options.resolve!.extensions!.includes(ext));
 
         compiler.options.resolve!.extensions!.unshift(...javascriptExtensions);
     }

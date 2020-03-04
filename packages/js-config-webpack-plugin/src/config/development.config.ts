@@ -35,5 +35,5 @@ export = (options: FrontlineJsConfigWebpackPluginOptions) => ({
             }
         ]
     },
-    plugins: []
+    plugins: options.plugins
 });
