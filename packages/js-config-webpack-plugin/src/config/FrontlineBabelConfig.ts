@@ -51,7 +51,8 @@ export function FrontlineBabelConfig() {
                             development: isEnvDevelopment,
                             useBuiltIns: true
                         }
-                    ]
+                    ],
+                    require("@babel/preset-typescript").default
                 ],
                 plugins: [
                     "react-hot-loader/babel",
@@ -96,7 +97,8 @@ export function FrontlineBabelConfig() {
                             development: isEnvDevelopment,
                             useBuiltIns: true
                         }
-                    ]
+                    ],
+                    require("@babel/preset-typescript").default
                 ],
                 plugins: [
                     "react-hot-loader/babel",
