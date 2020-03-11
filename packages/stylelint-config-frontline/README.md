@@ -9,4 +9,4 @@ Stylelint configuration for AKQA Denmark's frontend teams
 
 #### Install
 
-`npm install --save-dev @akqa-frontline/stylelint-config-frontline prettier stylelint stylelint-prettier stylelint-config-recommended-scss stylelint-scss` 
+`npm install --save-dev @akqa-frontline/stylelint-config-frontline prettier stylelint stylelint-prettier stylelint-config-prettier stylelint-config-recommended-scss stylelint-scss` 
