@@ -115,6 +115,57 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
         });
     });
 
+    it("should compile TS without errors", done => {
+        setEnv(ENVS.none);
+
+        const compiler = webpack({
+            mode: "none",
+            context: path.join(__dirname, "fixtures/simple-ts"),
+            plugins: [new FrontlineJsConfigWebpackPlugin()]
+        });
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+            expect(err).toEqual(null);
+            done();
+        });
+    });
+
+    it("should compile TS without errors in production mode", done => {
+        setEnv(ENVS.production);
+
+        const compiler = webpack({
+            mode: "production",
+            context: path.join(__dirname, "fixtures/simple-ts"),
+            plugins: [
+                new FrontlineJsConfigWebpackPlugin({
+                    browserslistEnv: "modern",
+                    enableEslint: false
+                })
+            ]
+        });
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+            done();
+        });
+    });
+
+    it("should compile TS without errors in development mode", done => {
+        setEnv(ENVS.development);
+
+        const compiler = webpack({
+            mode: "development",
+            context: path.join(__dirname, "fixtures/simple-ts"),
+            plugins: [new FrontlineJsConfigWebpackPlugin()]
+        });
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+            done();
+        });
+    });
+
     it("should allow to add the production mode within the js-config-webpack-plugin", done => {
         const referenceCompiler = webpack({
             mode: "production",
@@ -184,6 +235,25 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
     it("should have the correct babelConfigFile option in development mode", done => {
         const webpackContext = path.join(__dirname, "fixtures/babel");
         const babelConfigFileContext = path.join(__dirname, "../config");
+        const babelConfigFileName = ".babelrc";
+
+        const instance = webpack({
+            mode: "development",
+            context: webpackContext,
+            plugins: [new FrontlineJsConfigWebpackPlugin()]
+        });
+
+        const ruleToTest = instance.options.module.rules[0];
+        const ruleOptions = ruleToTest.use[0].options;
+
+        expect(ruleOptions.extends).toEqual(
+            path.resolve(webpackContext, babelConfigFileName)
+        );
+        done();
+    });
+
+    it("should have the correct babelConfigFile option in development mode (TS)", done => {
+        const webpackContext = path.join(__dirname, "fixtures/babel-ts");
         const babelConfigFileName = ".babelrc";
 
         const instance = webpack({

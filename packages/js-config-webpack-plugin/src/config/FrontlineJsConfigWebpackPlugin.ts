@@ -17,6 +17,7 @@ export interface FrontlineJsConfigWebpackPluginOptions {
     babelConfigFile?: string;
     tsConfigFile?: string;
     plugins?: any;
+    enableEslint?: boolean;
 }
 
 const defaultConfig = {
@@ -76,11 +77,7 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
             }
         }
 
-        throw chalk.bgRed(
-            `Could not find an appropriate typescript configuration file in directory.\nSearched the following locations:\n${searchLocations.join(
-                "\n"
-            )}`
-        );
+        return path.resolve(__dirname, "./tsconfig.json");
     }
 
     apply(compiler: Compiler): void {
@@ -97,6 +94,7 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
                     compiler.context,
                     this.options.browserslistEnv
                 ),
+            enableEslint: this.options.enableEslint ?? true,
             plugins: this.options.plugins || []
         };
 
@@ -104,7 +102,7 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
             defaultOptions.plugins = this.options.plugins || [
                 new ForkTsCheckerWebpackPlugin({
                     tsconfig: defaultOptions.tsConfigFile,
-                    eslint: true
+                    eslint: defaultOptions.enableEslint
                 })
             ];
         }
