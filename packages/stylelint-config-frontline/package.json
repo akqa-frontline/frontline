@@ -1,6 +1,6 @@
 {
   "name": "@akqa-frontline/stylelint-config-frontline",
-  "version": "0.7.2-alpha.2",
+  "version": "0.7.2-alpha.0",
   "license": "ISC",
   "files": [
     "index.js"
@@ -25,5 +25,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "660c006d106ac82acb557197568e08509adb981a"
 }
