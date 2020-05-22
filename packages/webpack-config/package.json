@@ -1,6 +1,6 @@
 {
 	"name": "@akqa-frontline/webpack-config",
-	"version": "0.7.2-alpha.0",
+	"version": "0.7.1",
 	"license": "ISC",
 	"main": "lib/index.js",
 	"typings": "lib/index.d.ts",
