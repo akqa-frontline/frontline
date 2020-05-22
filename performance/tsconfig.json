@@ -1,8 +1,5 @@
 {
-  "compilerOptions": {
-    "resolveJsonModule": true
-  },
   "extends": "../packages/js-config-webpack-plugin/src/config/tsconfig",
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["**/node_modules/**/*", "**/test/**/*", "__boilerplate/**/*"]
+  "exclude": ["**/node_modules/**/*", "**/test/**/*"]
 }

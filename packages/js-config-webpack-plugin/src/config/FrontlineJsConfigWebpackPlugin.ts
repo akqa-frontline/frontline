@@ -1,9 +1,8 @@
 import { Compiler, Plugin } from "webpack";
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const fs = require("fs");
 const path = require("path");
-const chalk = require("chalk");
+
 const findPackageData = require("@babel/core/lib/config/files/package")
     .findPackageData;
 const findRelativeConfig = require("@babel/core/lib/config/files/configuration")
@@ -16,8 +15,6 @@ export interface FrontlineJsConfigWebpackPluginOptions {
     browserslistEnv: string;
     babelConfigFile?: string;
     tsConfigFile?: string;
-    plugins?: any;
-    enableEslint?: boolean;
 }
 
 const defaultConfig = {
@@ -93,19 +90,8 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
                 this.resolveTypeScriptConfigFilePath(
                     compiler.context,
                     this.options.browserslistEnv
-                ),
-            enableEslint: this.options.enableEslint ?? true,
-            plugins: this.options.plugins || []
+                )
         };
-
-        if (this.options.browserslistEnv === "modern") {
-            defaultOptions.plugins = this.options.plugins || [
-                new ForkTsCheckerWebpackPlugin({
-                    tsconfig: defaultOptions.tsConfigFile,
-                    eslint: defaultOptions.enableEslint
-                })
-            ];
-        }
 
         const options = Object.assign(this.options, defaultOptions);
 
@@ -130,39 +116,6 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
             "FrontlineJsConfigWebpackPlugin",
             () => {
                 compiler.options.module!.rules.push(...config.module.rules);
-
-                let tsConfig = require(defaultOptions.tsConfigFile);
-                if (tsConfig.extends) {
-                    tsConfig = require(path.join(
-                        compiler.context,
-                        tsConfig.extends
-                    ));
-                }
-
-                if (
-                    tsConfig.compilerOptions &&
-                    tsConfig.compilerOptions.paths &&
-                    tsConfig.compilerOptions.baseUrl
-                ) {
-                    Object.keys(tsConfig.compilerOptions.paths).reduce(
-                        (aliases = {}, aliasName) => {
-                            const baseUrl = tsConfig.compilerOptions.baseUrl.replace(
-                                "/*",
-                                ""
-                            );
-                            const aliasPath = tsConfig.compilerOptions.paths[
-                                aliasName
-                            ][0].replace("/*", "");
-                            aliases[aliasName.replace("/*", "")] = path.join(
-                                compiler.context,
-                                baseUrl,
-                                aliasPath
-                            );
-                            return aliases;
-                        },
-                        compiler.options.resolve!.alias
-                    );
-                }
             }
         );
 

@@ -13,7 +13,8 @@
     "update-snapshots": "jest -u --runInBand"
   },
   "peerDependencies": {
-    "webpack": ">=4.0.0"
+    "webpack": ">=4.0.0",
+    "typescript": ">=3.9.0"
   },
   "dependencies": {
     "@babel/core": "7.7.2",
@@ -35,6 +36,7 @@
     "core-js": "3.4.1",
     "react-hot-loader": "4.12.19",
     "terser-webpack-plugin": "2.2.1",
+    "typescript": "3.9.3",
     "webpack": "4.41.2"
   },
   "devDependencies": {
@@ -45,9 +47,7 @@
     "@types/webpack": "4.41.0",
     "@typescript-eslint/eslint-plugin": "2.8.0",
     "@typescript-eslint/parser": "2.8.0",
-    "chalk": "3.0.0",
     "copyfiles": "2.2.0",
-    "eslint": "6.7.2",
     "fork-ts-checker-webpack-plugin": "4.0.5",
     "jest": "24.9.0",
     "jsdom": "15.2.1",
@@ -56,8 +56,7 @@
     "react-dom": "16.12.0",
     "rimraf": "3.0.0",
     "sourcemap-validator": "2.1.0",
-    "ts-jest": "24.1.0",
-    "typescript": "3.7.2"
+    "ts-jest": "24.1.0"
   },
   "jest": {
     "browser": false,
