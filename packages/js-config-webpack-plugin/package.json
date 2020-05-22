@@ -1,6 +1,6 @@
 {
   "name": "@akqa-frontline/js-config-webpack-plugin",
-  "version": "0.7.1",
+  "version": "0.7.2-alpha.0",
   "license": "ISC",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -13,8 +13,8 @@
     "update-snapshots": "jest -u --runInBand"
   },
   "peerDependencies": {
-    "webpack": ">=4.0.0",
-    "typescript": ">=3.9.0"
+    "typescript": ">=3.9.0",
+    "webpack": ">=4.0.0"
   },
   "dependencies": {
     "@babel/core": "7.7.2",
