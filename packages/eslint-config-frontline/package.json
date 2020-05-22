@@ -1,6 +1,6 @@
 {
   "name": "@akqa-frontline/eslint-config-frontline",
-  "version": "0.7.2-alpha.0",
+  "version": "0.7.2-alpha.1",
   "license": "ISC",
   "files": [
     "index.js"
