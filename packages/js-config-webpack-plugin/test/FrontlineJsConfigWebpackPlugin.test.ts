@@ -139,8 +139,7 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
             context: path.join(__dirname, "fixtures/simple-ts"),
             plugins: [
                 new FrontlineJsConfigWebpackPlugin({
-                    browserslistEnv: "modern",
-                    enableEslint: false
+                    browserslistEnv: "modern"
                 })
             ]
         });
