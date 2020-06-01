@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.2](https://github.com/akqa-frontline/frontline/compare/v0.7.1...v0.7.2) (2020-06-01)
+
+**Note:** Version bump only for package @akqa-frontline/stylelint-config-frontline
+
+
+
+
+
+
 ## [0.7.1](https://github.com/akqa-frontline/frontline/compare/v0.7.0...v0.7.1) (2020-03-03)
 
 **Note:** Version bump only for package @akqa-frontline/stylelint-config-frontline
