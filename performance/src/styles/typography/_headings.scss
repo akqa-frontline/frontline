@@ -12,5 +12,6 @@ $heading-scale-map: (
 @for $i from 1 through 6 {
     .h#{$i} {
         font-size: map-get($heading-scale-map, $i);
+        font-family: "Bandeins Strange Variable", sans-serif;
     }
 }
