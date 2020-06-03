@@ -1,6 +1,6 @@
 {
   "name": "@akqa-frontline/scss-config-webpack-plugin",
-  "version": "0.7.2-alpha.0",
+  "version": "0.8.0",
   "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
