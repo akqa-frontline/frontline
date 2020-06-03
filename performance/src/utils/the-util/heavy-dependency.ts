@@ -1,3 +1,3 @@
-export function fakeItTillYouMakeIt(input) {
+export function fakeItTillYouMakeIt() {
     return "one fake thing!";
 }
