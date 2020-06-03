@@ -59,24 +59,6 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
         return path.resolve(__dirname, "./babel.config.js");
     }
 
-    resolveTypeScriptConfigFilePath(
-        contextPath: string,
-        browserslistEnv = defaultConfig.browserslistEnv
-    ) {
-        const searchLocations = [
-            path.join(contextPath, `tsconfig.${browserslistEnv}.json`),
-            path.join(contextPath, "tsconfig.json")
-        ];
-
-        for (const filePath of searchLocations) {
-            if (fs.existsSync(filePath)) {
-                return filePath;
-            }
-        }
-
-        return path.resolve(__dirname, "./tsconfig.json");
-    }
-
     apply(compiler: Compiler): void {
         const defaultOptions = {
             babelConfigFile:
@@ -84,12 +66,6 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
                 this.resolveBabelConfigFilePath(
                     compiler.context,
                     compiler.options.mode || this.options.mode
-                ),
-            tsConfigFile:
-                this.options.tsConfigFile ||
-                this.resolveTypeScriptConfigFilePath(
-                    compiler.context,
-                    this.options.browserslistEnv
                 )
         };
 
