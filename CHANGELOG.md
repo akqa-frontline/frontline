@@ -10,7 +10,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 * **webpack-config:** upgrade webpack-manifest-plugin ([#15](https://github.com/akqa-frontline/frontline/issues/15)) ([04a8996](https://github.com/akqa-frontline/frontline/commit/04a899659ac1a83569160bc7a5e64b9d6dd99289))
->>>>>>> master
 
 
 

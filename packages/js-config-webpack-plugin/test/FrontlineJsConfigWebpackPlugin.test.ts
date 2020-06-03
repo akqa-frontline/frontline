@@ -16,7 +16,7 @@ const webpack = require("webpack");
 // Allow tests to run 20s
 jest.setTimeout(20000);
 
-// Silence console output
+// Silence console outputoutput
 console.warn = jest.fn();
 
 beforeAll(done => {

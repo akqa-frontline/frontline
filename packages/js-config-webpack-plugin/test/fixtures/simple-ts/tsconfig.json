@@ -1,4 +1,16 @@
 {
-  "extends": "../../../src/config/tsconfig",
-  "include": ["src/**/*.ts"]
+  "compilerOptions": {
+    "allowJs": false,
+    "target": "es6",
+    "lib": ["es6"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "sourceMap": true,
+    "types": ["node", "jest"],
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["**/node_modules/**/*", "**/test/**/*", "__boilerplate/**/*"]
 }
