@@ -1,6 +1,6 @@
 {
 	"name": "@akqa-frontline/webpack-config",
-	"version": "0.7.2-alpha.0",
+	"version": "0.7.2",
 	"license": "ISC",
 	"main": "lib/index.js",
 	"typings": "lib/index.d.ts",
@@ -33,7 +33,7 @@
 		"webpack-bundle-analyzer": "3.6.0",
 		"webpack-dev-server": "3.9.0",
 		"webpack-fix-style-only-entries": "0.4.0",
-		"webpack-manifest-plugin": "2.2.0",
+		"webpack-manifest-plugin": "v3.0.0-rc.0",
 		"webpack-module-nomodule-plugin": "0.2.1"
 	},
 	"devDependencies": {
