@@ -1,4 +1,5 @@
 import { Compiler, Plugin } from "webpack";
+import ts from "typescript";
 
 const fs = require("fs");
 const path = require("path");
@@ -59,6 +60,21 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
         return path.resolve(__dirname, "./babel.config.js");
     }
 
+    userHasTsConfigFile(
+        contextPath: string = path.resolve(process.cwd(), "tsconfig.json")
+    ) {
+        const { config, error } = ts.readConfigFile(
+            contextPath,
+            ts.sys.readFile
+        );
+
+        if (error) {
+            return false;
+        }
+
+        return !!config;
+    }
+
     apply(compiler: Compiler): void {
         const defaultOptions = {
             babelConfigFile:
@@ -66,7 +82,8 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
                 this.resolveBabelConfigFilePath(
                     compiler.context,
                     compiler.options.mode || this.options.mode
-                )
+                ),
+            tsConfigFile: this.userHasTsConfigFile(this.options.tsConfigFile)
         };
 
         const options = Object.assign(this.options, defaultOptions);

@@ -37,7 +37,7 @@ export = (options: FrontlineJsConfigWebpackPluginOptions) => ({
         ]
     },
     plugins: [
-        options.browserslistEnv === "modern" &&
+        options.tsConfigFile &&
             new ForkTsCheckerWebpackPlugin({ eslint: false })
     ].filter(Boolean)
 });
