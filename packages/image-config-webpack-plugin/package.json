@@ -1,6 +1,6 @@
 {
   "name": "@akqa-frontline/image-config-webpack-plugin",
-  "version": "0.7.1",
+  "version": "0.7.2-alpha.0",
   "license": "ISC",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -60,5 +60,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "3d3a5638e09e5d6f428467189dd9ada6fad3110d"
+  "gitHead": "660c006d106ac82acb557197568e08509adb981a"
 }

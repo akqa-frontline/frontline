@@ -1,7 +1,8 @@
 import { Compiler, Plugin } from "webpack";
 
+const fs = require("fs");
 const path = require("path");
-const chalk = require("chalk");
+
 const findPackageData = require("@babel/core/lib/config/files/package")
     .findPackageData;
 const findRelativeConfig = require("@babel/core/lib/config/files/configuration")
@@ -13,6 +14,7 @@ export interface FrontlineJsConfigWebpackPluginOptions {
     mode: "production" | "development" | "none";
     browserslistEnv: string;
     babelConfigFile?: string;
+    tsConfigFile?: string;
 }
 
 const defaultConfig = {
@@ -93,9 +95,13 @@ export class FrontlineJsConfigWebpackPlugin implements Plugin {
             }
         );
 
-        const javascriptExtensions = [".js", ".jsx", ".mjs"].filter(
-            ext => !compiler.options.resolve!.extensions!.includes(ext)
-        );
+        const javascriptExtensions = [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            ".mjs"
+        ].filter(ext => !compiler.options.resolve!.extensions!.includes(ext));
 
         compiler.options.resolve!.extensions!.unshift(...javascriptExtensions);
     }

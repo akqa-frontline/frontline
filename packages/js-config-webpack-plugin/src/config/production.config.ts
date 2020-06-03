@@ -1,6 +1,8 @@
+import TerserWebpackPlugin = require("terser-webpack-plugin");
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+
 import { FILE_REGEX, SVG_COMPONENT_REGEX } from "../utils/file-extension";
 import { FrontlineJsConfigWebpackPluginOptions } from "./FrontlineJsConfigWebpackPlugin";
-import TerserWebpackPlugin = require("terser-webpack-plugin");
 
 export = (options: FrontlineJsConfigWebpackPluginOptions) => ({
     module: {
@@ -39,7 +41,10 @@ export = (options: FrontlineJsConfigWebpackPluginOptions) => ({
             }
         ]
     },
-    plugins: [],
+    plugins: [
+        options.browserslistEnv === "modern" &&
+            new ForkTsCheckerWebpackPlugin({ eslint: false })
+    ].filter(Boolean),
     optimization: {
         minimizer: [
             options.browserslistEnv === "modern" && [

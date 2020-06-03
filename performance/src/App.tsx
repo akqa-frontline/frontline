@@ -11,7 +11,7 @@ const Lazy = loadable(() => import("./components/lazy/Lazy"));
 
 const theLibraryInstance = new TheLibrary();
 
-import locale from "../public/translation/da-DK";
+import locale from "../public/translation/da-DK.json";
 
 class App extends PureComponent {
     state = {
@@ -44,8 +44,6 @@ class App extends PureComponent {
     };
 
     render() {
-        const { initialProps } = this.props;
-
         return (
             <div className="app">
                 <h1>Performance App Ny</h1>

@@ -1,4 +1,4 @@
-const FILE_REGEX = /\.(js|jsx|mjs)$/;
+const FILE_REGEX = /\.(ts|tsx|js|jsx|mjs)$/;
 
 const SVG_COMPONENT_REGEX = /\.component.svg$/;
 

@@ -1,8 +1,18 @@
+interface Animal {
+    name: string;
+}
+
+interface Adventurer {
+    name: string;
+    cat: Animal;
+    dog?: Animal;
+}
+
 export default class TheLibrary {
     iCanHaveClassProperties = "this is a class property";
 
     iCanHaveDynamicImportAsyncAwaitAndAllThat = async () => {
-        const heavyFunction = await import("./heavy-dependency.js");
+        const heavyFunction = await import("./heavy-dependency");
         const resultFromFunction = heavyFunction.fakeItTillYouMakeIt(
             "doesnt matter"
         );
@@ -36,7 +46,7 @@ export default class TheLibrary {
     };
 
     iCanDoOptionalChaining = () => {
-        const adventurer = {
+        const adventurer: Adventurer = {
             name: "Alice",
             cat: {
                 name: "Dinah"
