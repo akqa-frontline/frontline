@@ -13,9 +13,7 @@ export default class TheLibrary {
 
     iCanHaveDynamicImportAsyncAwaitAndAllThat = async () => {
         const heavyFunction = await import("./heavy-dependency");
-        const resultFromFunction = heavyFunction.fakeItTillYouMakeIt(
-            "doesnt matter"
-        );
+        const resultFromFunction = heavyFunction.fakeItTillYouMakeIt();
 
         return resultFromFunction;
     };

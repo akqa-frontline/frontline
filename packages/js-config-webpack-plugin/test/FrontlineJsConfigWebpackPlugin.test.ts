@@ -5,11 +5,9 @@ import {
     setEnv
 } from "../../../test-utils/src/test-utils";
 import { jsDomWindowContext } from "../../../test-utils/src/jsDomWindowContext";
-import { FrontlineImageConfigWebpackPlugin } from "../../image-config-webpack-plugin/src";
 
 const path = require("path");
 const rimraf = require("rimraf");
-const fs = require("fs");
 const glob = require("glob");
 const webpack = require("webpack");
 
@@ -121,12 +119,38 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
         const compiler = webpack({
             mode: "none",
             context: path.join(__dirname, "fixtures/simple-ts"),
-            plugins: [new FrontlineJsConfigWebpackPlugin()]
+            plugins: [
+                new FrontlineJsConfigWebpackPlugin({
+                    tsConfigFile: path.join(
+                        __dirname,
+                        "fixtures/simple-ts/tsconfig.json"
+                    )
+                })
+            ]
         });
 
         compiler.run((err: any, stats: any) => {
             failTestIfWebpackCompilationFails(err, stats, done);
             expect(err).toEqual(null);
+            done();
+        });
+    });
+
+    it("should not compile TS if no tsconfig.json file is present", done => {
+        setEnv(ENVS.production);
+
+        const compiler = webpack({
+            mode: "production",
+            context: path.join(__dirname, "fixtures/simple"),
+            plugins: [
+                new FrontlineJsConfigWebpackPlugin({
+                    browserslistEnv: "modern"
+                })
+            ]
+        });
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
             done();
         });
     });
@@ -139,7 +163,11 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
             context: path.join(__dirname, "fixtures/simple-ts"),
             plugins: [
                 new FrontlineJsConfigWebpackPlugin({
-                    browserslistEnv: "modern"
+                    browserslistEnv: "modern",
+                    tsConfigFile: path.join(
+                        __dirname,
+                        "fixtures/simple-ts/tsconfig.json"
+                    )
                 })
             ]
         });
@@ -156,7 +184,14 @@ describe("FrontlineJsConfigWebpackPlugin inside webpack context", () => {
         const compiler = webpack({
             mode: "development",
             context: path.join(__dirname, "fixtures/simple-ts"),
-            plugins: [new FrontlineJsConfigWebpackPlugin()]
+            plugins: [
+                new FrontlineJsConfigWebpackPlugin({
+                    tsConfigFile: path.join(
+                        __dirname,
+                        "fixtures/simple-ts/tsconfig.json"
+                    )
+                })
+            ]
         });
 
         compiler.run((err: any, stats: any) => {

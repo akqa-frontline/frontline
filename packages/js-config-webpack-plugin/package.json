@@ -16,6 +16,9 @@
     "typescript": ">=3.9.0",
     "webpack": ">=4.0.0"
   },
+  "optionalDependencies": {
+    "typescript": ">=3.9.0"
+  },
   "dependencies": {
     "@babel/core": "7.7.2",
     "@babel/plugin-proposal-class-properties": "7.7.0",
