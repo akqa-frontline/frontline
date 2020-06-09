@@ -4,3 +4,4 @@
 
     Please dont delete me.
  */
+export default {};

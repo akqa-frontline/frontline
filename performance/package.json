@@ -11,6 +11,7 @@
   "devDependencies": {
     "@akqa-frontline/asset-config-webpack-plugin": "file:../packages/asset-config-webpack-plugin",
     "@akqa-frontline/font-config-webpack-plugin": "file:../packages/font-config-webpack-plugin",
+    "@akqa-frontline/generate-injection-html-webpack-plugin": "file:../packages/generate-injection-html-webpack-plugin",
     "@akqa-frontline/image-config-webpack-plugin": "file:../packages/image-config-webpack-plugin",
     "@akqa-frontline/js-config-webpack-plugin": "file:../packages/js-config-webpack-plugin",
     "@akqa-frontline/scss-config-webpack-plugin": "file:../packages/scss-config-webpack-plugin",
