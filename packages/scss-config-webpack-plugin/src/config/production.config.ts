@@ -55,7 +55,8 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
                             options: {
                                 sourceMap: true,
                                 sassOptions: {
-                                    importer: [jsonImporter(), globImporter()]
+                                    importer: [jsonImporter(), globImporter()],
+                                    ...options.sassOptions
                                 }
                             }
                         }
@@ -103,7 +104,8 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
                             options: {
                                 sourceMap: true,
                                 sassOptions: {
-                                    importer: [jsonImporter(), globImporter()]
+                                    importer: [jsonImporter(), globImporter()],
+                                    ...options.sassOptions
                                 }
                             }
                         }

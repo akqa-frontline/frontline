@@ -1,10 +1,13 @@
 import { Compiler, Plugin } from "webpack";
+import { LoaderOptions } from "sass-loader/interfaces";
 
 export interface FrontlineScssWebpackPluginOptions {
     mode: "production" | "development" | "none";
     browserslistEnv: string;
     filename: string;
     chunkFilename: string;
+
+    sassOptions?: LoaderOptions.SassOptions;
 }
 
 // No defaults yet

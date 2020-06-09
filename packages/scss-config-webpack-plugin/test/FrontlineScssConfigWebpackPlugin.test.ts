@@ -544,4 +544,34 @@ describe("FrontlineScssConfigWebpackPlugin inside webpack context", () => {
             done();
         });
     });
+
+    it("should allow overriding sass compiler options", done => {
+        const compiler = webpack({
+            mode: "production",
+            context: path.join(__dirname, "fixtures/sass-options"),
+            plugins: [
+                new FrontlineScssConfigWebpackPlugin({
+                    sassOptions: {
+                        includePaths: [
+                            path.join(__dirname, "fixtures/sass-options/src")
+                        ]
+                    }
+                })
+            ]
+        });
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+
+            const cssFilePath = path.resolve(
+                __dirname,
+                "./fixtures/dist/main.css"
+            );
+            const contents = fs.readFileSync(cssFilePath).toString();
+
+            expect(contents).toEqual(".foo{color:tomato}");
+
+            done();
+        });
+    });
 });
