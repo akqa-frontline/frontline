@@ -62,21 +62,14 @@ export function FrontlineWebpackConfig(
             watchContentBase: true
         }),
         hot: true,
-        publicPath:
-            webpackConfig.devServer && webpackConfig.devServer.publicPath
-                ? webpackConfig.devServer.publicPath
-                : "/",
-        host:
-            webpackConfig.devServer && webpackConfig.devServer.host
-                ? webpackConfig.devServer.host
-                : "localhost",
-        port:
-            webpackConfig.devServer && webpackConfig.devServer.port
-                ? webpackConfig.devServer.port
-                : 8080,
+        publicPath: "/",
+        host: "localhost",
+        port: 8080,
         historyApiFallback: true,
         open: true,
-        overlay: true
+        overlay: true,
+
+        ...webpackConfig.devServer
     };
 
     const baseConfig: WebpackConfiguration = {
@@ -242,7 +235,8 @@ export function FrontlineWebpackConfig(
 
         resolve: {
             alias: {
-                "react-dom": "@hot-loader/react-dom"
+                "react-dom": "@hot-loader/react-dom",
+                ...(webpackConfig.resolve && { ...webpackConfig.resolve.alias })
             }
         },
 

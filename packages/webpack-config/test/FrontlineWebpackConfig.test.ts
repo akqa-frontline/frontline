@@ -41,30 +41,73 @@ describe("FrontlineWebpackConfig", () => {
         expect(webpackConfig).toBeDefined();
     });
 
-    it("should accept customizing port, host and publicPath for devServer and nothing else", () => {
+    it("should allow overriding the dev-server config", () => {
         const webpackConfig = FrontlineWebpackConfig("modern", {
             devServer: {
                 port: 666,
                 host: "foobar",
                 publicPath: "barfoo",
-                // you should not be allowed to change this
-                overlay: false
+                overlay: false,
+                proxy: {
+                    "**": {
+                        target: "http://example.local",
+                        changeOrigin: true
+                    }
+                }
             }
         });
 
         expect(webpackConfig.devServer).toEqual({
+            // original settings
             compress: true,
             contentBase: paths.appPublic,
             watchContentBase: true,
             hot: true,
-            //
+            historyApiFallback: true,
+            open: true,
+
+            // overwritten
             port: 666,
             host: "foobar",
             publicPath: "barfoo",
-            //
-            historyApiFallback: true,
-            open: true,
-            overlay: true
+            overlay: false,
+            proxy: {
+                "**": {
+                    target: "http://example.local",
+                    changeOrigin: true
+                }
+            }
+        });
+    });
+
+    it("should allow overriding the output config", () => {
+        const webpackConfig = FrontlineWebpackConfig("modern", {
+            output: {
+                publicPath: "../foo/bar"
+            }
+        });
+
+        // should be changed
+        expect(webpackConfig.output?.publicPath).toEqual("../foo/bar");
+
+        // should not be changed
+        expect(webpackConfig.output?.filename).toEqual(
+            "static/js/[name].modern.js"
+        );
+    });
+
+    it("should adding resolve aliases", () => {
+        const webpackConfig = FrontlineWebpackConfig("modern", {
+            resolve: {
+                alias: {
+                    "~": "./foo/bar"
+                }
+            }
+        });
+
+        expect(webpackConfig.resolve?.alias).toEqual({
+            "react-dom": "@hot-loader/react-dom",
+            "~": "./foo/bar"
         });
     });
 });
