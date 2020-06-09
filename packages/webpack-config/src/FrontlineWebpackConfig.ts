@@ -5,7 +5,6 @@ import {
 } from "webpack";
 
 import path from "path";
-import fs from "fs";
 import HtmlWebpackEsModulesPlugin from "webpack-module-nomodule-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
@@ -25,15 +24,28 @@ const publicPath = isEnvProduction ? paths.servedPath : "/";
 
 const manifest: { modern?: any; legacy?: any } = {};
 
+interface FrontlineWebpackConfigOptions {
+    outputMode?: "efficient" | "minimal";
+    generateHTML?: boolean;
+}
+
+const defaultOptions: FrontlineWebpackConfigOptions = {
+    generateHTML: true,
+    outputMode: "efficient"
+};
+
 export function FrontlineWebpackConfig(
     browserslistEnv: "legacy" | "modern",
-    webpackConfig: WebpackConfiguration
+    webpackConfig: WebpackConfiguration,
+    config?: FrontlineWebpackConfigOptions
 ): WebpackConfiguration {
     if (browserslistEnv !== "legacy" && browserslistEnv !== "modern") {
         throw new Error(
             'browserslistEnv argument must be "modern" or "legacy" - support for single envs is coming in a later release'
         );
     }
+
+    const _config = Object.assign({}, defaultOptions, config);
 
     // `publicUrl` is just like `publicPath`, but we will provide it to our app
     // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
@@ -45,8 +57,10 @@ export function FrontlineWebpackConfig(
 
     const devServerConfig: WebpackDevServerConfiguration = {
         compress: true,
-        contentBase: paths.appPublic,
-        watchContentBase: true,
+        ...(_config.generateHTML && {
+            contentBase: paths.appPublic,
+            watchContentBase: true
+        }),
         hot: true,
         publicPath:
             webpackConfig.devServer && webpackConfig.devServer.publicPath
@@ -133,28 +147,34 @@ export function FrontlineWebpackConfig(
         devServer: devServerConfig,
 
         plugins: [
-            new HtmlWebpackPlugin({
-                inject: true,
-                template: "./public/index.html",
-                minify: isEnvProduction
-                    ? {
-                          removeComments: true,
-                          collapseWhitespace: true,
-                          removeRedundantAttributes: true,
-                          useShortDoctype: true,
-                          removeEmptyAttributes: true,
-                          removeStyleLinkTypeAttributes: true,
-                          keepClosingSlash: true,
-                          minifyJS: true,
-                          minifyCSS: true,
-                          minifyURLs: true
-                      }
-                    : undefined
-            }),
-            new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
-            new DefinePlugin(env.stringified),
-
-            new HtmlWebpackEsModulesPlugin(browserslistEnv),
+            ...(_config.generateHTML
+                ? [
+                      new HtmlWebpackPlugin({
+                          inject: true,
+                          template: "./public/index.html",
+                          minify: isEnvProduction
+                              ? {
+                                    removeComments: true,
+                                    collapseWhitespace: true,
+                                    removeRedundantAttributes: true,
+                                    useShortDoctype: true,
+                                    removeEmptyAttributes: true,
+                                    removeStyleLinkTypeAttributes: true,
+                                    keepClosingSlash: true,
+                                    minifyJS: true,
+                                    minifyCSS: true,
+                                    minifyURLs: true
+                                }
+                              : undefined
+                      }),
+                      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+                      new DefinePlugin(env.stringified),
+                      new HtmlWebpackEsModulesPlugin(
+                          browserslistEnv,
+                          _config.outputMode
+                      )
+                  ]
+                : []),
 
             // Remove JS for CSS only entrypoints ({entry: "styles.css"})
             isEnvProduction && new FixStyleOnlyEntriesPlugin(),

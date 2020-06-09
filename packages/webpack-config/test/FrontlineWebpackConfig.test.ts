@@ -214,4 +214,44 @@ describe("FrontlineWebpackConfig inside webpack context", () => {
             done();
         });
     });
+
+    it("should support disabling HTML index.html generation", done => {
+        setEnv(ENVS.production);
+
+        const frontlineWebpackConfig = FrontlineWebpackConfig(
+            "modern",
+            {
+                mode: "production",
+                context: path.join(__dirname, "fixtures/simple"),
+                entry: {
+                    namedIndex: "./src/index.js",
+                    namedSecond: "./src/second.js"
+                },
+                output: {
+                    path: path.join(__dirname, "fixtures/dist")
+                }
+            },
+            { generateHTML: false }
+        );
+
+        const compiler = webpack(frontlineWebpackConfig);
+
+        compiler.run((err: any, stats: any) => {
+            failTestIfWebpackCompilationFails(err, stats, done);
+
+            expect(stats.compilation.errors).toEqual([]);
+
+            let generatedFile;
+
+            try {
+                generatedFile = fs.readFileSync(
+                    path.join(__dirname, "fixtures/dist/index.html")
+                );
+            } catch (e) {}
+
+            expect(generatedFile).toEqual(undefined);
+
+            done();
+        });
+    });
 });
