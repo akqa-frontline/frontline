@@ -5,9 +5,9 @@ import { hot } from "react-hot-loader/root";
 import loadable from "@loadable/component";
 
 import "./App.scss";
-import Eager from "./components/eager/Eager";
-import { TheLibrary } from "./utils/the-util";
-const Lazy = loadable(() => import("./components/lazy/Lazy"));
+import Eager from "~/components/eager/Eager";
+import { TheLibrary } from "~/utils/the-util";
+const Lazy = loadable(() => import("~/components/lazy/Lazy"));
 
 const theLibraryInstance = new TheLibrary();
 

@@ -1,5 +1,5 @@
-@import "../../tokens/typography";
-@import "../../tokens/colors.json";
+@import "~/tokens/typography";
+@import "~/tokens/colors.json";
 
 .eager {
     color: nth($indigo, 10);

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import styles from "./Eager.module.scss";
-import colors from "../../tokens/colors.json";
+import colors from "~/tokens/colors.json";
 
 const Eager = ({ msg }) => (
     <div className={styles.eager}>

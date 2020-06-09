@@ -1,3 +1,5 @@
+const path = require("path");
+
 const {
     FrontlineScssConfigWebpackPlugin
 } = require("@akqa-frontline/scss-config-webpack-plugin");
@@ -23,6 +25,10 @@ const frontlineWebpackConfigOptions = {
     outputMode: "minimal"
 };
 
+const sassOptions = {
+    includePaths: [path.resolve(__dirname, "./src")]
+};
+
 const webpackEntry = {
     main: "./src/index.tsx",
     styles: "./src/styles/global.scss"
@@ -37,6 +43,11 @@ const sharedWebpackPlugins = [
 const sharedWebpackConfig = {
     devServer: {
         port: 8888
+    },
+    resolve: {
+        alias: {
+            "~": path.join(__dirname, "./src")
+        }
     }
 };
 
@@ -46,7 +57,10 @@ const legacyWebpackConfig = FrontlineWebpackConfig(
         entry: webpackEntry,
         plugins: [
             ...sharedWebpackPlugins,
-            new FrontlineScssConfigWebpackPlugin({ browserslistEnv: "legacy" }),
+            new FrontlineScssConfigWebpackPlugin({
+                browserslistEnv: "legacy",
+                sassOptions
+            }),
             new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "legacy" }),
             new FrontlineGenerateInjectionHtmlWebpackPlugin({
                 browserslistEnv: "legacy",
@@ -64,7 +78,10 @@ const modernWebpackConfig = FrontlineWebpackConfig(
         entry: webpackEntry,
         plugins: [
             ...sharedWebpackPlugins,
-            new FrontlineScssConfigWebpackPlugin({ browserslistEnv: "modern" }),
+            new FrontlineScssConfigWebpackPlugin({
+                browserslistEnv: "modern",
+                sassOptions
+            }),
             new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "modern" }),
             new FrontlineGenerateInjectionHtmlWebpackPlugin({
                 browserslistEnv: "modern",
