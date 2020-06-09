@@ -43,7 +43,10 @@ export = (options: FrontlineJsConfigWebpackPluginOptions) => ({
     },
     plugins: [
         options.tsConfigFile &&
-            new ForkTsCheckerWebpackPlugin({ eslint: false })
+            new ForkTsCheckerWebpackPlugin({
+                eslint: false,
+                useTypescriptIncrementalApi: false
+            })
     ].filter(Boolean),
     optimization: {
         minimizer: [
