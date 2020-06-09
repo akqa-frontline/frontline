@@ -3,6 +3,7 @@ import { FrontlineScssWebpackPluginOptions } from "./FrontlineScssConfigWebpackP
 const autoprefixer = require("autoprefixer");
 const jsonImporter = require("node-sass-json-importer");
 const globImporter = require("node-sass-glob-importer");
+const path = require("path");
 
 import { FILE_MODULE_REGEX, FILE_REGEX } from "../utils/file-extension";
 
@@ -49,7 +50,25 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                         options: {
                             sourceMap: true,
                             sassOptions: {
-                                importer: [jsonImporter(), globImporter()],
+                                importer: [
+                                    jsonImporter({
+                                        ...(options.sassOptions
+                                            ?.includePaths && {
+                                            resolver: function(
+                                                dir: string,
+                                                url: string
+                                            ): string {
+                                                return url.startsWith("~/")
+                                                    ? path.resolve(
+                                                          dir,
+                                                          url.substr(2)
+                                                      )
+                                                    : path.resolve(dir, url);
+                                            }
+                                        })
+                                    }),
+                                    globImporter()
+                                ],
                                 ...options.sassOptions
                             }
                         }
@@ -98,7 +117,25 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                         options: {
                             sourceMap: true,
                             sassOptions: {
-                                importer: [jsonImporter(), globImporter()],
+                                importer: [
+                                    jsonImporter({
+                                        ...(options.sassOptions
+                                            ?.includePaths && {
+                                            resolver: function(
+                                                dir: string,
+                                                url: string
+                                            ): string {
+                                                return url.startsWith("~/")
+                                                    ? path.resolve(
+                                                          dir,
+                                                          url.substr(2)
+                                                      )
+                                                    : path.resolve(dir, url);
+                                            }
+                                        })
+                                    }),
+                                    globImporter()
+                                ],
                                 ...options.sassOptions
                             }
                         }
