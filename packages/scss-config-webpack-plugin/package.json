@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "autoprefixer": "9.7.2",
+    "cosmiconfig": "^6.0.0",
     "css-loader": "3.2.1",
     "file-loader": "4.3.0",
     "iconfont-webpack-plugin": "4.2.1",
