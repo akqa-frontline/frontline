@@ -21,6 +21,8 @@ const {
 
 const { FrontlineWebpackConfig } = require("@akqa-frontline/webpack-config");
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 const frontlineWebpackConfigOptions = {
     outputMode: "minimal"
 };
@@ -93,4 +95,6 @@ const modernWebpackConfig = FrontlineWebpackConfig(
     frontlineWebpackConfigOptions
 );
 
-module.exports = [modernWebpackConfig, legacyWebpackConfig];
+module.exports = isDevelopment
+    ? modernWebpackConfig
+    : [modernWebpackConfig, legacyWebpackConfig];
