@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0-rc.1](https://github.com/akqa-frontline/frontline/compare/v0.9.0-rc.0...v0.9.0-rc.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* **webpack-config:** only generate module / no module blocks in index.html, in production ([c8f6d8e](https://github.com/akqa-frontline/frontline/commit/c8f6d8e9345a216ad8f04c89928395fbd309deeb))
+
+
+
+
+
 # [0.9.0-rc.0](https://github.com/akqa-frontline/frontline/compare/v0.8.1...v0.9.0-rc.0) (2020-06-11)
 
 **Note:** Version bump only for package @akqa-frontline/webpack-config

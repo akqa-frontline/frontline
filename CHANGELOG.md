@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0-rc.1](https://github.com/akqa-frontline/frontline/compare/v0.9.0-rc.0...v0.9.0-rc.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* **generate-injection-html-webpack-plugin:** use one template file - read and split into head/body v ([4581aa7](https://github.com/akqa-frontline/frontline/commit/4581aa70e494be624c529d40a3f81938811835cf))
+* **scss-config-webpack-plugin:** set publicPath for mini-css-extract-plugin in procution ([b5e1746](https://github.com/akqa-frontline/frontline/commit/b5e1746f879b12c184c95147c26ed4174cdb23c6))
+* **webpack-config:** only generate module / no module blocks in index.html, in production ([c8f6d8e](https://github.com/akqa-frontline/frontline/commit/c8f6d8e9345a216ad8f04c89928395fbd309deeb))
+
+
+
+
+
 # [0.9.0-rc.0](https://github.com/akqa-frontline/frontline/compare/v0.8.1...v0.9.0-rc.0) (2020-06-11)
 
 
