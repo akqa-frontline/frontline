@@ -160,14 +160,17 @@ export function FrontlineWebpackConfig(
                                 }
                               : undefined
                       }),
-                      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
-                      new DefinePlugin(env.stringified),
-                      new HtmlWebpackEsModulesPlugin(
-                          browserslistEnv,
-                          _config.outputMode
-                      )
+                      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw)
                   ]
                 : []),
+            new DefinePlugin(env.stringified),
+            // Only generate module / no module blocks in index.html, in production
+            isEnvProduction &&
+                _config.generateHTML &&
+                new HtmlWebpackEsModulesPlugin(
+                    browserslistEnv,
+                    _config.outputMode
+                ),
 
             // Remove JS for CSS only entrypoints ({entry: "styles.css"})
             isEnvProduction && new FixStyleOnlyEntriesPlugin(),
