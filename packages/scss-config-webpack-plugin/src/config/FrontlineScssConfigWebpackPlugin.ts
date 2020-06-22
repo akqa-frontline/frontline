@@ -7,13 +7,16 @@ export interface FrontlineScssWebpackPluginOptions {
     browserslistEnv: string;
     filename: string;
     chunkFilename: string;
+    publicPath: string;
 
     sassOptions?: LoaderOptions.SassOptions;
     postCssConfigFile?: string;
 }
 
 // No defaults yet
-const defaultOptions: Partial<FrontlineScssWebpackPluginOptions> = {};
+const defaultOptions: Partial<FrontlineScssWebpackPluginOptions> = {
+    publicPath: "../../"
+};
 
 export class FrontlineScssConfigWebpackPlugin implements Plugin {
     options: Partial<FrontlineScssWebpackPluginOptions>;

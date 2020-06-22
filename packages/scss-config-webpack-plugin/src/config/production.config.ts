@@ -17,7 +17,9 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
                     exclude: FILE_MODULE_REGEX,
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader
+                            loader: MiniCssExtractPlugin.loader,
+                            // css is located in `static/css`, use '../../' to locate index.html folder
+                            options: { publicPath: options.publicPath }
                         },
                         {
                             loader: require.resolve("css-loader"),
@@ -56,7 +58,9 @@ export = (options: FrontlineScssWebpackPluginOptions) => {
                     test: FILE_MODULE_REGEX,
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader
+                            loader: MiniCssExtractPlugin.loader,
+                            // css is located in `static/css`, use '../../' to locate index.html folder
+                            options: { publicPath: options.publicPath }
                         },
                         {
                             loader: require.resolve("css-loader"),
