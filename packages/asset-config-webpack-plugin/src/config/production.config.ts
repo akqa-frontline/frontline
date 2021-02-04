@@ -5,13 +5,17 @@ export = () => ({
         rules: []
     },
     plugins: [
-        new CopyPlugin([
-            {
-                from: "./public",
-                to: "./",
-                // html files is controlled by html-webpack-plugin in our webpack-config
-                ignore: ["*.html"]
-            }
-        ])
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: "./public",
+                    to: "./",
+                    globOptions: {
+                        // html files is controlled by html-webpack-plugin in our webpack-config
+                        ignore: ["*.html"]
+                    }
+                }
+            ]
+        })
     ]
 });
