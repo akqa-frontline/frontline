@@ -31,9 +31,12 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                                       }
                                   }
                                 : {
-                                      postcssOptions: FrontlinePostcssConfig(
-                                          options.browserslistEnv
-                                      )
+                                      postcssOptions: (loaderContext: any) => {
+                                          return FrontlinePostcssConfig(
+                                              options.browserslistEnv,
+                                              loaderContext
+                                          );
+                                      }
                                   }
                     },
                     {
@@ -71,9 +74,12 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                                       }
                                   }
                                 : {
-                                      postcssOptions: FrontlinePostcssConfig(
-                                          options.browserslistEnv
-                                      )
+                                      postcssOptions: (loaderContext: any) => {
+                                          return FrontlinePostcssConfig(
+                                              options.browserslistEnv,
+                                              loaderContext
+                                          );
+                                      }
                                   }
                     },
                     {
