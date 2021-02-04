@@ -1,6 +1,6 @@
 import { Compiler, Plugin } from "webpack";
-import { LoaderOptions } from "sass-loader/interfaces";
 import { cosmiconfigSync } from "cosmiconfig";
+import { Options as SassOptions } from "sass";
 
 export interface FrontlineScssWebpackPluginOptions {
     mode: "production" | "development" | "none";
@@ -9,7 +9,7 @@ export interface FrontlineScssWebpackPluginOptions {
     chunkFilename: string;
     publicPath: string;
 
-    sassOptions?: LoaderOptions.SassOptions;
+    sassOptions?: SassOptions;
     postCssConfigFile?: string;
 }
 

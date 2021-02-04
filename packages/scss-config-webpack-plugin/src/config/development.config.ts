@@ -26,13 +26,15 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                         options:
                             options.postCssConfigFile !== null
                                 ? {
-                                      config: {
+                                      postcssOptions: {
                                           path: options.postCssConfigFile
                                       }
                                   }
-                                : FrontlinePostcssConfig(
-                                      options.browserslistEnv
-                                  )
+                                : {
+                                      postcssOptions: FrontlinePostcssConfig(
+                                          options.browserslistEnv
+                                      )
+                                  }
                     },
                     {
                         loader: require.resolve("resolve-url-loader")
@@ -64,13 +66,15 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                         options:
                             options.postCssConfigFile !== null
                                 ? {
-                                      config: {
+                                      postcssOptions: {
                                           path: options.postCssConfigFile
                                       }
                                   }
-                                : FrontlinePostcssConfig(
-                                      options.browserslistEnv
-                                  )
+                                : {
+                                      postcssOptions: FrontlinePostcssConfig(
+                                          options.browserslistEnv
+                                      )
+                                  }
                     },
                     {
                         loader: require.resolve("resolve-url-loader")

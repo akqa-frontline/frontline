@@ -1,10 +1,10 @@
-import { LoaderOptions } from "sass-loader/interfaces";
-import SassOptions = LoaderOptions.SassOptions;
-
+import { Options as SassOptions } from "sass";
 const path = require("path");
 
 export function FrontlineNodeSassConfig(sassOptions?: SassOptions) {
     return {
+        // Prefer `dart-sass`
+        implementation: require("sass"),
         sourceMap: true,
         sassOptions: {
             importer: [
