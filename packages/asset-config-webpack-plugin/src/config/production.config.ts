@@ -12,7 +12,7 @@ export = () => ({
                     to: "./",
                     globOptions: {
                         // html files is controlled by html-webpack-plugin in our webpack-config
-                        ignore: ["*.html"]
+                        ignore: ["**/*.html"]
                     }
                 }
             ]
