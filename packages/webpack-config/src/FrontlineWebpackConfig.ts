@@ -5,40 +5,45 @@ import {
 } from "webpack";
 
 import path from "path";
-import HtmlWebpackEsModulesPlugin from "webpack-module-nomodule-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
-import WebpackAssetsManifest, { FileDescriptor } from "webpack-manifest-plugin";
 import InterpolateHtmlPlugin from "react-dev-utils/InterpolateHtmlPlugin";
 import FixStyleOnlyEntriesPlugin from "webpack-fix-style-only-entries";
-
 import paths from "./paths";
 import getClientEnvironment from "./env";
 
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const WebpackAssetsManifest = require("webpack-assets-manifest");
 
 const isEnvDevelopment = process.env.NODE_ENV === "development";
 const isEnvProduction = process.env.NODE_ENV === "production";
 
 const publicPath = isEnvProduction ? paths.servedPath : "/";
 
-const manifest: { modern?: any; legacy?: any } = {};
-
 interface FrontlineWebpackConfigOptions {
     outputMode?: "efficient" | "minimal";
     generateHTML?: boolean;
+    manifestInstance?: object;
+    afterWebpackAssetsManifestDone?: Function;
 }
 
 const defaultOptions: FrontlineWebpackConfigOptions = {
     generateHTML: true,
-    outputMode: "efficient"
+    outputMode: "efficient",
+    manifestInstance: Object.create({
+        modern: {},
+        legacy: {}
+    })
 };
+
+interface Configuration extends WebpackConfiguration {
+    devServer?: Record<string, unknown>;
+}
 
 export function FrontlineWebpackConfig(
     browserslistEnv: "legacy" | "modern",
-    webpackConfig: WebpackConfiguration,
+    webpackConfig: Configuration,
     config?: FrontlineWebpackConfigOptions
-): WebpackConfiguration {
+): Configuration {
     if (browserslistEnv !== "legacy" && browserslistEnv !== "modern") {
         throw new Error(
             'browserslistEnv argument must be "modern" or "legacy" - support for single envs is coming in a later release'
@@ -55,7 +60,7 @@ export function FrontlineWebpackConfig(
         : isEnvDevelopment && "";
     const env = getClientEnvironment(publicUrl as string);
 
-    const devServerConfig: WebpackDevServerConfiguration = {
+    const devServerConfig = {
         compress: true,
         ...(_config.generateHTML && {
             contentBase: paths.appPublic,
@@ -164,13 +169,6 @@ export function FrontlineWebpackConfig(
                   ]
                 : []),
             new DefinePlugin(env.stringified),
-            // Only generate module / no module blocks in index.html, in production
-            isEnvProduction &&
-                _config.generateHTML &&
-                new HtmlWebpackEsModulesPlugin(
-                    browserslistEnv,
-                    _config.outputMode
-                ),
 
             // Remove JS for CSS only entrypoints ({entry: "styles.css"})
             isEnvProduction && new FixStyleOnlyEntriesPlugin(),
@@ -187,44 +185,18 @@ export function FrontlineWebpackConfig(
 
             isEnvProduction &&
                 new WebpackAssetsManifest({
-                    fileName: "asset-manifest.json",
-                    publicPath: publicPath,
-                    seed: manifest,
-                    generate: (seed, files, entrypoints) => {
-                        if (!manifest.hasOwnProperty(browserslistEnv)) {
-                            manifest[
-                                browserslistEnv === "modern"
-                                    ? "modern"
-                                    : "legacy"
-                            ] = {};
+                    // Options go here
+                    assets: config?.manifestInstance,
+                    writeToDisk: true,
+                    entrypoints: true,
+                    output: `injection-manifest.${browserslistEnv}.json`,
+                    ...(config?.afterWebpackAssetsManifestDone && {
+                        done: () => {
+                            console.log("hest");
+                            config.afterWebpackAssetsManifestDone &&
+                                config.afterWebpackAssetsManifestDone();
                         }
-
-                        const manifestFiles = files.reduce(
-                            (
-                                manifest: { [key: string]: string },
-                                file: FileDescriptor
-                            ) => {
-                                manifest[`${file.name}`] = file.path as string;
-                                return manifest;
-                            },
-                            {}
-                        );
-
-                        const entrypointFiles: {
-                            [key: string]: Array<string>;
-                        } = {};
-
-                        Object.keys(entrypoints).forEach(k => {
-                            entrypointFiles[k] = entrypoints[k].filter(
-                                fileName => !fileName.endsWith(".map")
-                            );
-                        });
-
-                        manifest[browserslistEnv].files = manifestFiles;
-                        manifest[browserslistEnv].entrypoints = entrypointFiles;
-
-                        return manifest;
-                    }
+                    })
                 })
         ].filter(Boolean) as WebpackPlugin[],
 

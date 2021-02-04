@@ -16,15 +16,19 @@ const {
     FrontlineAssetConfigWebpackPlugin
 } = require("@akqa-frontline/asset-config-webpack-plugin");
 const {
-    FrontlineGenerateInjectionHtmlWebpackPlugin
+    compileTemplates
 } = require("@akqa-frontline/generate-injection-html-webpack-plugin");
 
 const { FrontlineWebpackConfig } = require("@akqa-frontline/webpack-config");
 
 const isDevelopment = process.env.NODE_ENV === "development";
+const manifestInstance = Object.create({
+    modern: {},
+    legacy: {}
+});
 
 const frontlineWebpackConfigOptions = {
-    outputMode: "minimal"
+    manifestInstance
 };
 
 const sassOptions = {
@@ -63,15 +67,22 @@ const legacyWebpackConfig = FrontlineWebpackConfig(
                 browserslistEnv: "legacy",
                 sassOptions
             }),
-            new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "legacy" }),
-            new FrontlineGenerateInjectionHtmlWebpackPlugin({
-                browserslistEnv: "legacy",
-                outputMode: "minimal"
-            })
+            new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "legacy" })
+            // new FrontlineGenerateInjectionHtmlWebpackPlugin({
+            //     browserslistEnv: "legacy"
+            // })
         ],
         ...sharedWebpackConfig
     },
-    frontlineWebpackConfigOptions
+    {
+        ...frontlineWebpackConfigOptions,
+        afterWebpackAssetsManifestDone: () =>
+            compileTemplates({
+                manifestPath: path.resolve(
+                    "./dist/injection-manifest.legacy.json"
+                )
+            })
+    }
 );
 
 const modernWebpackConfig = FrontlineWebpackConfig(
@@ -84,15 +95,22 @@ const modernWebpackConfig = FrontlineWebpackConfig(
                 browserslistEnv: "modern",
                 sassOptions
             }),
-            new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "modern" }),
-            new FrontlineGenerateInjectionHtmlWebpackPlugin({
-                browserslistEnv: "modern",
-                outputMode: "minimal"
-            })
+            new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "modern" })
+            // new FrontlineGenerateInjectionHtmlWebpackPlugin({
+            //     browserslistEnv: "modern",
+            // })
         ],
         ...sharedWebpackConfig
     },
-    frontlineWebpackConfigOptions
+    {
+        ...frontlineWebpackConfigOptions,
+        afterWebpackAssetsManifestDone: () =>
+            compileTemplates({
+                manifestPath: path.resolve(
+                    "./dist/injection-manifest.modern.json"
+                )
+            })
+    }
 );
 
 module.exports = isDevelopment

@@ -7,7 +7,34 @@ import loadable from "@loadable/component";
 import "./App.scss";
 import Eager from "~/components/eager/Eager";
 import { TheLibrary } from "~/utils/the-util";
-const Lazy = loadable(() => import("~/components/lazy/Lazy"));
+
+const Lazy = loadable(() =>
+    import(
+        /* webpackChunkName: "lazy" */
+        "~/components/lazy/Lazy"
+    )
+);
+
+const LazyPrefetch = loadable(() =>
+    import(
+        /* webpackChunkName: "lazy-prefetch", webpackPrefetch: true */
+        "~/components/lazy-prefetch/LazyPrefetch"
+    )
+);
+
+const LazyPreload = loadable(() =>
+    import(
+        /* webpackChunkName: "lazy-preload", webpackPreload: true */
+        "~/components/lazy-preload/LazyPreload"
+    )
+);
+
+const LazyPreloadPrefetch = loadable(() =>
+    import(
+        /* webpackChunkName: "lazy-preload-prefetch", webpackPreload: true, webpackPrefetch: true */
+        "~/components/lazy-preload/LazyPreload"
+    )
+);
 
 const theLibraryInstance = new TheLibrary();
 
@@ -49,7 +76,10 @@ class App extends PureComponent {
                 <h1>Performance App Ny</h1>
                 <p>{locale.hello}</p>
                 <Eager msg="im not dynamically imported :-/" />
-                <Lazy msg="im AM dynamically imported :-D" />
+                <Lazy msg="Lazy" />
+                <LazyPrefetch msg="Lazy + Prefetch" />
+                <LazyPreload msg="Lazy + Preload" />
+                <LazyPreloadPrefetch msg="Lazy + Preload + Prefetch" />
                 <hr />
                 <button onClick={this.theLibraryAsync}>theLibraryAsync</button>
                 <button onClick={this.theLibrarySync}>theLibrarySync</button>
