@@ -1,0 +1,65 @@
+{
+  "name": "@akqa-frontline/generate-injection-html-webpack-plugin",
+  "version": "0.9.0-rc.1",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc && copyfiles -f src/config/default.*.ejs lib/config",
+    "test": "jest --verbose --runInBand --detectOpenHandles",
+    "test-watch": "jest --verbose --watch --runInBand --detectOpenHandles",
+    "test-coverage": "jest --verbose --coverage --runInBand --detectOpenHandles",
+    "update-snapshots": "jest -u --runInBand"
+  },
+  "peerDependencies": {
+    "webpack": ">=4.0.0"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "4.3.0",
+    "webpack": "4.41.2",
+    "webpack-module-nomodule-plugin": "^0.4.0"
+  },
+  "devDependencies": {
+    "@akqa-frontline/js-config-webpack-plugin": "^0.9.0-rc.0",
+    "@types/jest": "24.0.23",
+    "@types/node": "12.12.11",
+    "@types/webpack": "4.41.0",
+    "@typescript-eslint/eslint-plugin": "2.8.0",
+    "@typescript-eslint/parser": "2.8.0",
+    "copyfiles": "^2.3.0",
+    "eslint": "6.7.2",
+    "html-webpack-plugin": "^4.3.0",
+    "jest": "24.9.0",
+    "rimraf": "3.0.0",
+    "ts-jest": "24.1.0",
+    "typescript": "3.7.2"
+  },
+  "jest": {
+    "browser": false,
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "watchPathIgnorePatterns": [
+      "<rootDir>/test/fixtures"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "fixtures",
+      "dist"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!test/jsDomWindowContext.{js,ts}"
+    ],
+    "coverageReporters": [
+      "text"
+    ]
+  },
+  "engines": {
+    "npm": ">=5",
+    "node": ">=6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "660c006d106ac82acb557197568e08509adb981a"
+}

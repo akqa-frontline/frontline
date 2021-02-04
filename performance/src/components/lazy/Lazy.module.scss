@@ -1,5 +1,5 @@
-@import "../../tokens/typography";
-@import "../../tokens/colors.json";
+@import "~/tokens/typography";
+@import "~/tokens/colors.json";
 
 .lazy {
     color: nth($orange, 7);

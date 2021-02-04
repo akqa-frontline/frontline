@@ -1,10 +1,8 @@
 import { FrontlineScssWebpackPluginOptions } from "./FrontlineScssConfigWebpackPlugin";
 
-const autoprefixer = require("autoprefixer");
-const jsonImporter = require("node-sass-json-importer");
-const globImporter = require("node-sass-glob-importer");
-
 import { FILE_MODULE_REGEX, FILE_REGEX } from "../utils/file-extension";
+import { FrontlinePostcssConfig } from "./FrontlinePostcssConfig";
+import { FrontlineNodeSassConfig } from "./FrontlineNodeSassConfig";
 
 export = (options: FrontlineScssWebpackPluginOptions) => ({
     module: {
@@ -25,33 +23,25 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                     },
                     {
                         loader: require.resolve("postcss-loader"),
-                        options: {
-                            plugins: (loader: any) => [
-                                require("postcss-flexbugs-fixes"),
-                                autoprefixer({
-                                    // flexbox: "no-2009" will add prefixes only for final and IE versions of specification.
-                                    // @see https://github.com/postcss/autoprefixer#disabling
-                                    flexbox: "no-2009",
-                                    env: options.browserslistEnv
-                                }),
-                                require("iconfont-webpack-plugin")({
-                                    resolve: loader.resolve
-                                })
-                            ],
-                            sourceMap: true
-                        }
+                        options:
+                            options.postCssConfigFile !== null
+                                ? {
+                                      postcssOptions: {
+                                          path: options.postCssConfigFile
+                                      }
+                                  }
+                                : {
+                                      postcssOptions: FrontlinePostcssConfig(
+                                          options.browserslistEnv
+                                      )
+                                  }
                     },
                     {
                         loader: require.resolve("resolve-url-loader")
                     },
                     {
                         loader: require.resolve("sass-loader"),
-                        options: {
-                            sourceMap: true,
-                            sassOptions: {
-                                importer: [jsonImporter(), globImporter()]
-                            }
-                        }
+                        options: FrontlineNodeSassConfig(options.sassOptions)
                     }
                 ]
             },
@@ -73,33 +63,25 @@ export = (options: FrontlineScssWebpackPluginOptions) => ({
                     },
                     {
                         loader: require.resolve("postcss-loader"),
-                        options: {
-                            plugins: (loader: any) => [
-                                require("postcss-flexbugs-fixes"),
-                                autoprefixer({
-                                    // flexbox: "no-2009" will add prefixes only for final and IE versions of specification.
-                                    // @see https://github.com/postcss/autoprefixer#disabling
-                                    flexbox: "no-2009",
-                                    env: options.browserslistEnv
-                                }),
-                                require("iconfont-webpack-plugin")({
-                                    resolve: loader.resolve
-                                })
-                            ],
-                            sourceMap: true
-                        }
+                        options:
+                            options.postCssConfigFile !== null
+                                ? {
+                                      postcssOptions: {
+                                          path: options.postCssConfigFile
+                                      }
+                                  }
+                                : {
+                                      postcssOptions: FrontlinePostcssConfig(
+                                          options.browserslistEnv
+                                      )
+                                  }
                     },
                     {
                         loader: require.resolve("resolve-url-loader")
                     },
                     {
                         loader: require.resolve("sass-loader"),
-                        options: {
-                            sourceMap: true,
-                            sassOptions: {
-                                importer: [jsonImporter(), globImporter()]
-                            }
-                        }
+                        options: FrontlineNodeSassConfig(options.sassOptions)
                     }
                 ]
             }

@@ -1,14 +1,22 @@
 import { Compiler, Plugin } from "webpack";
+import { cosmiconfigSync } from "cosmiconfig";
+import { Options as SassOptions } from "sass";
 
 export interface FrontlineScssWebpackPluginOptions {
     mode: "production" | "development" | "none";
     browserslistEnv: string;
     filename: string;
     chunkFilename: string;
+    publicPath: string;
+
+    sassOptions?: SassOptions;
+    postCssConfigFile?: string;
 }
 
 // No defaults yet
-const defaultOptions: Partial<FrontlineScssWebpackPluginOptions> = {};
+const defaultOptions: Partial<FrontlineScssWebpackPluginOptions> = {
+    publicPath: "../../"
+};
 
 export class FrontlineScssConfigWebpackPlugin implements Plugin {
     options: Partial<FrontlineScssWebpackPluginOptions>;
@@ -20,6 +28,16 @@ export class FrontlineScssConfigWebpackPlugin implements Plugin {
         };
     }
 
+    resolvePostcssConfigFile(contextPath: string): string | null {
+        const result = cosmiconfigSync("postcss").search(contextPath);
+
+        if (result) {
+            return result.filepath;
+        }
+
+        return null;
+    }
+
     apply(compiler: Compiler): void {
         // From https://github.com/webpack/webpack/blob/3366421f1784c449f415cda5930a8e445086f688/lib/WebpackOptionsDefaulter.js#L12-L14
         const isProductionLikeMode =
@@ -27,6 +45,10 @@ export class FrontlineScssConfigWebpackPlugin implements Plugin {
                 ? this.options.mode === "production"
                 : compiler.options.mode === "production" ||
                   !compiler.options.mode;
+
+        const options = Object.assign({}, this.options, {
+            postCssConfigFile: this.resolvePostcssConfigFile(compiler.context)
+        });
 
         // Use compiler.options.output configuration also for css
         // Replace folder names called js and extends called js to css
@@ -44,13 +66,13 @@ export class FrontlineScssConfigWebpackPlugin implements Plugin {
             ? require("./production.config")(
                   Object.assign(
                       { filename, chunkFilename, mode: "production" },
-                      this.options
+                      options
                   )
               )
             : require("./development.config")(
                   Object.assign(
                       { filename, chunkFilename, mode: "development" },
-                      this.options
+                      options
                   )
               );
 

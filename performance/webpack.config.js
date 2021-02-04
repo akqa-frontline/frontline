@@ -1,3 +1,5 @@
+const path = require("path");
+
 const {
     FrontlineScssConfigWebpackPlugin
 } = require("@akqa-frontline/scss-config-webpack-plugin");
@@ -13,15 +15,28 @@ const {
 const {
     FrontlineAssetConfigWebpackPlugin
 } = require("@akqa-frontline/asset-config-webpack-plugin");
+const {
+    FrontlineGenerateInjectionHtmlWebpackPlugin
+} = require("@akqa-frontline/generate-injection-html-webpack-plugin");
 
 const { FrontlineWebpackConfig } = require("@akqa-frontline/webpack-config");
 
-const entry = {
+const isDevelopment = process.env.NODE_ENV === "development";
+
+const frontlineWebpackConfigOptions = {
+    outputMode: "minimal"
+};
+
+const sassOptions = {
+    includePaths: [path.resolve(__dirname, "./src")]
+};
+
+const webpackEntry = {
     main: "./src/index.tsx",
     styles: "./src/styles/global.scss"
 };
 
-const sharedPlugins = [
+const sharedWebpackPlugins = [
     new FrontlineImageConfigWebpackPlugin(),
     new FrontlineFontConfigWebpackPlugin(),
     new FrontlineAssetConfigWebpackPlugin()
@@ -30,27 +45,56 @@ const sharedPlugins = [
 const sharedWebpackConfig = {
     devServer: {
         port: 8888
+    },
+    resolve: {
+        alias: {
+            "~": path.join(__dirname, "./src")
+        }
     }
 };
 
-const legacyWebpackConfig = FrontlineWebpackConfig("legacy", {
-    entry,
-    plugins: [
-        ...sharedPlugins,
-        new FrontlineScssConfigWebpackPlugin({ browserslistEnv: "legacy" }),
-        new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "legacy" })
-    ],
-    ...sharedWebpackConfig
-});
+const legacyWebpackConfig = FrontlineWebpackConfig(
+    "legacy",
+    {
+        entry: webpackEntry,
+        plugins: [
+            ...sharedWebpackPlugins,
+            new FrontlineScssConfigWebpackPlugin({
+                browserslistEnv: "legacy",
+                sassOptions
+            }),
+            new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "legacy" }),
+            new FrontlineGenerateInjectionHtmlWebpackPlugin({
+                browserslistEnv: "legacy",
+                outputMode: "minimal"
+            })
+        ],
+        ...sharedWebpackConfig
+    },
+    frontlineWebpackConfigOptions
+);
 
-const modernWebpackConfig = FrontlineWebpackConfig("modern", {
-    entry,
-    plugins: [
-        ...sharedPlugins,
-        new FrontlineScssConfigWebpackPlugin({ browserslistEnv: "modern" }),
-        new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "modern" })
-    ],
-    ...sharedWebpackConfig
-});
+const modernWebpackConfig = FrontlineWebpackConfig(
+    "modern",
+    {
+        entry: webpackEntry,
+        plugins: [
+            ...sharedWebpackPlugins,
+            new FrontlineScssConfigWebpackPlugin({
+                browserslistEnv: "modern",
+                sassOptions
+            }),
+            new FrontlineJsConfigWebpackPlugin({ browserslistEnv: "modern" }),
+            new FrontlineGenerateInjectionHtmlWebpackPlugin({
+                browserslistEnv: "modern",
+                outputMode: "minimal"
+            })
+        ],
+        ...sharedWebpackConfig
+    },
+    frontlineWebpackConfigOptions
+);
 
-module.exports = [legacyWebpackConfig, modernWebpackConfig];
+module.exports = isDevelopment
+    ? modernWebpackConfig
+    : [modernWebpackConfig, legacyWebpackConfig];
