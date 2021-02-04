@@ -145,9 +145,8 @@ describe("FrontlineFontConfigWebpackPlugin inside webpack context", () => {
             const generatedFiles = glob.sync("./fixtures/dist/**/*.woff", {
                 cwd: __dirname
             });
-            expect(generatedFiles).toEqual([
-                "./fixtures/dist/static/media/OpenSans-Regular-webfont.c8ffdeb3.woff"
-            ]);
+            expect(generatedFiles).toHaveLength(1);
+
             done();
         });
     });

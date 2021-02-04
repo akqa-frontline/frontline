@@ -1,6 +1,9 @@
-export function FrontlinePostcssConfig(browserslistEnv: string) {
+export function FrontlinePostcssConfig(
+    browserslistEnv: string,
+    loaderContext: any
+) {
     return {
-        plugins: (loader: any) => [
+        plugins: [
             require("postcss-flexbugs-fixes"),
             require("autoprefixer")({
                 // flexbox: "no-2009" will add prefixes only for final and IE versions of specification.
@@ -8,9 +11,7 @@ export function FrontlinePostcssConfig(browserslistEnv: string) {
                 flexbox: browserslistEnv === "modern" ? false : "no-2009",
                 env: browserslistEnv
             }),
-            require("iconfont-webpack-plugin")({
-                resolve: loader.resolve
-            })
+            require("iconfont-webpack-plugin")(loaderContext)
         ],
         sourceMap: false
     };
