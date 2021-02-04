@@ -52,7 +52,9 @@ describe("FrontlineScssConfigWebpackPlugin standalone", () => {
     });
 
     it("should return an instance with the options assigned to it", () => {
-        const options = {};
+        const options = {
+            publicPath: "../../"
+        };
         const instance = new FrontlineScssConfigWebpackPlugin(options);
 
         expect(instance.options).toEqual(options);
