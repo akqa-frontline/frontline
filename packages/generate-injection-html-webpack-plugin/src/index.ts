@@ -21,9 +21,9 @@ export const compileTemplates = ({
     const compiledTemplates: Record<string, string> = {};
 
     const _headerTemplatePath =
-        headerTemplatePath || path.resolve(__dirname, "./head.handlebars");
+        headerTemplatePath || path.resolve(__dirname, "./head.hbs");
     const _bodyTemplatePath =
-        bodyTemplatePath || path.resolve(__dirname, "./body.handlebars");
+        bodyTemplatePath || path.resolve(__dirname, "./body.hbs");
     const _outputPath = outputPath || "dist";
 
     if (!manifestPath) {

@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc && copyfiles -f src/*.handlebars lib",
+    "build": "tsc && copyfiles -f src/*.hbs lib",
     "test": "jest --verbose --runInBand --detectOpenHandles",
     "test-watch": "jest --verbose --watch --runInBand --detectOpenHandles",
     "test-coverage": "jest --verbose --coverage --runInBand --detectOpenHandles",
