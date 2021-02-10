@@ -78,9 +78,11 @@ const legacyWebpackConfig = FrontlineWebpackConfig(
         ...frontlineWebpackConfigOptions,
         afterWebpackAssetsManifestDone: () =>
             compileTemplates({
-                manifestPath: path.resolve(
-                    "./dist/injection-manifest.legacy.json"
-                )
+                manifestPaths: {
+                    legacy: path.resolve(
+                        "./dist/injection-manifest.legacy.json"
+                    )
+                }
             })
     }
 );
@@ -106,9 +108,11 @@ const modernWebpackConfig = FrontlineWebpackConfig(
         ...frontlineWebpackConfigOptions,
         afterWebpackAssetsManifestDone: () =>
             compileTemplates({
-                manifestPath: path.resolve(
-                    "./dist/injection-manifest.modern.json"
-                )
+                manifestPaths: {
+                    modern: path.resolve(
+                        "./dist/injection-manifest.modern.json"
+                    )
+                }
             })
     }
 );

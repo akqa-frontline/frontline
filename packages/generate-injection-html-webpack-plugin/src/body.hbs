@@ -1,1 +1,7 @@
-hej body
+
+{{~#if useScriptsInBody~}}
+    {{~!-- legacy entry scripts --~}}
+    {{~#each manifests.legacy.entrypoints.main.assets.js~}}
+        <script nomodule href="{{this}}"></script>
+    {{~/each~}}
+{{~/if~}}

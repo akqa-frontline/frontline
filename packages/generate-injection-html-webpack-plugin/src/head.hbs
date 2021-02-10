@@ -1,1 +1,39 @@
-hej head
+
+{{~!-- modern entry scripts --~}}
+{{~#each manifests.modern.entrypoints.main.assets.js~}}
+    <script type="module" href="{{this}}"></script>
+{{~/each~}}
+
+{{~!-- modern preloaded scripts --~}}
+{{~#each manifests.modern.entrypoints.main.preload.js~}}
+    <link rel="modulepreload" href="{{this}}" as="script">
+{{~/each~}}
+
+{{~!-- modern prefetched scripts --~}}
+{{~#each manifests.modern.entrypoints.main.prefetch.js~}}
+    <link rel="prefetch" href="{{this}}" as="script">
+{{~/each~}}
+
+{{~#if useModernStyling~}}
+    {{~!-- modern entry styling --~}}
+    {{~#each manifests.modern.entrypoints.main.assets.css~}}
+    <link rel="stylesheet" href="{{this}}" />
+    {{~/each~}}
+{{~/if~}}
+
+{{~#if injectSafariScript~}}
+    {{{safariFixScript}}}
+{{~/if~}}
+
+{{~#if useScriptsInBody~}}
+{{else}}
+    {{~!-- legacy entry scripts --~}}
+    {{~#each manifests.legacy.entrypoints.main.assets.js~}}
+        <script nomodule href="{{this}}"></script>
+    {{~/each~}}
+{{~/if~}}
+
+{{~!-- legacy entry styling --~}}
+{{~#each manifests.legacy.entrypoints.main.assets.css~}}
+    <link rel="stylesheet" href="{{this}}" />
+{{~/each~}}
